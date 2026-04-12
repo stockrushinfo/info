@@ -413,6 +413,11 @@
                 <td>Device</td>
                 <td><span class="badge badge-delete">Deleted immediately</span></td>
             </tr>
+            <tr>
+                <td>Uploaded broker files</td>
+                <td>Server</td>
+                <td><span class="badge badge-local">Never stored</span></td>
+            </tr>
         </tbody>
     </table>
 
@@ -474,11 +479,23 @@
         personal data on our servers.</strong>
     </p>
 
-    <h3>1.3 Data stored on your device</h3>
+    <h3>1.3 Broker file upload</h3>
+    <p>
+        You may import your portfolio by uploading a broker statement file (Excel/CSV).
+        The file is sent to our server solely to enable the parsing functionality of the app.
+        We extract portfolio-related information such as ticker symbols, quantities, and transaction amounts,
+        and return the structured data to your device.
+    </p>
+    <p>
+        The uploaded file is processed temporarily in memory and is not stored after processing.
+        We do not retain, store, or intentionally log the contents of the file on our servers.
+    </p>
+
+    <h3>1.4 Data stored on your device</h3>
     <p>
         Your portfolio data (tickers, quantities, amounts, settings, benchmarks)
         is stored locally on your device. This data never leaves your device except
-        as described in Section 3.
+        as described in Sections 1.3 and 3.
     </p>
 
     <h2>2. Data we do NOT collect</h2>
@@ -491,18 +508,26 @@
     </ul>
 
     <h2>3. Third-party services</h2>
+
+    <p>The App communicates with our backend server to:</p>
+    <ul>
+        <li>Authenticate users via Google Sign-In</li>
+        <li>Fetch real-time market data (stock prices, exchange rates)</li>
+        <li>Process uploaded broker files for portfolio import</li>
+    </ul>
+
     <p>
-        The App communicates with our backend server to:
+        We rely on third-party services to operate the App, including:
     </p>
     <ul>
-        <li>Authenticate your Google Sign-In</li>
-        <li>Fetch real-time market data (stock prices, exchange rates)</li>
-        <li>Parse uploaded broker files</li>
+        <li>Google (for authentication services)</li>
+        <li>Financial data providers (e.g. Twelve Data, Massive API) for market data</li>
     </ul>
+
     <p>
-        Our server uses third-party financial data APIs to provide market information.
-        These services receive only ticker symbols (e.g. "AAPL") &mdash; never personal data, portfolio
-        details, or any information that could identify you.
+        These services may receive limited technical data necessary to process requests
+        (such as ticker symbols or standard network information). We do not send personal
+        portfolio data or user-identifying information to these providers.
     </p>
 
     <h3>Google Sign-In</h3>
@@ -532,8 +557,17 @@
         You can delete your account at any time from within the App
         (Settings &rarr; Delete account) or by contacting us at
         <a href="mailto:stockrush.app@gmail.com">stockrush.app@gmail.com</a>.
-        Account deletion permanently removes all server-side data (account identifier and
-        refresh token) and all local data on your device. No data is retained after deletion.
+    </p>
+    <p>
+        Account deletion permanently removes all server-side data associated with your account,
+        including your account identifier and authentication tokens.
+    </p>
+    <p>
+        Local data stored on your device can be removed by using the in-app deletion feature
+        or by uninstalling the application.
+    </p>
+    <p>
+        We do not retain any personal data after account deletion.
     </p>
 
     <h2>7. Children's privacy</h2>
