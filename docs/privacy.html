@@ -44,17 +44,45 @@
             gap: 14px;
         }
         .logo-ring {
-            width: 40px; height: 40px;
-            border-radius: 50%;
-            border: 2px solid var(--accent);
-            display: flex; align-items: center; justify-content: center;
-            font-weight: 700; font-size: 18px; color: var(--accent);
+            width: 72px; height: 72px;
+            border-radius: 24px;
+            border: 1.5px solid rgba(118, 217, 118, 0.55);
+            background: rgba(118, 217, 118, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 14px rgba(118, 217, 118, 0.35);
             flex-shrink: 0;
         }
-        .header-title {
-            font-size: 20px; font-weight: 700; letter-spacing: -0.3px;
+        .logo-ring img {
+            width: 48px; height: 48px;
+            border-radius: 12px;
         }
-        .header-title span { color: var(--accent); }
+        .name-badges {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .badge-stock, .badge-rush {
+            font-size: 18px;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 10px;
+            letter-spacing: 0.3px;
+            border-width: 2px;
+            border-style: solid;
+            line-height: 1.2;
+        }
+        .badge-stock {
+            color: #F0F2F5;
+            border-color: rgba(255, 255, 255, 0.75);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .badge-rush {
+            color: #76D976;
+            border-color: rgba(118, 217, 118, 0.75);
+            background: rgba(118, 217, 118, 0.15);
+        }
 
         /* ── Nav tabs ── */
         nav {
@@ -280,14 +308,19 @@
 
 <header>
     <div class="header-inner">
-        <div class="logo-ring">S</div>
-        <div class="header-title"><span>Stock</span>Rush</div>
+        <div class="logo-ring">
+            <img src="img/app-icon.png" alt="StockRush" style="width: 64px; height: 64px;">
+        </div>
+        <div class="name-badges">
+            <span class="badge-stock">Stock</span>
+            <span class="badge-rush">Rush</span>
+        </div>
     </div>
 </header>
 
 <nav>
-    <button class="nav-tab active" onclick="showSection('deletion')">Account Deletion</button>
-    <button class="nav-tab" onclick="showSection('privacy')">Privacy Policy</button>
+    <button class="nav-tab active" onclick="showSection('privacy')">Privacy Policy</button>
+    <button class="nav-tab" onclick="showSection('deletion')">Account Deletion</button>
 </nav>
 
 <main>
@@ -295,7 +328,7 @@
 <!-- ════════════════════════════════════════════════════════════════════════ -->
 <!-- SECTION 1 — ACCOUNT DELETION                                          -->
 <!-- ════════════════════════════════════════════════════════════════════════ -->
-<div id="deletion" class="section active">
+<div id="deletion" class="section">
 
     <h1>Delete your account</h1>
     <p class="subtitle">
@@ -443,7 +476,7 @@
 <!-- ════════════════════════════════════════════════════════════════════════ -->
 <!-- SECTION 2 — PRIVACY POLICY                                            -->
 <!-- ════════════════════════════════════════════════════════════════════════ -->
-<div id="privacy" class="section">
+<div id="privacy" class="section active">
 
     <h1>Privacy Policy</h1>
     <p class="subtitle">
@@ -553,15 +586,15 @@
 
     <h3>Analytics</h3>
     <p>
-        We use analytics services (such as Google Firebase Analytics) to understand how users interact
+        We use analytics services such as Google Firebase Analytics to understand how users interact
         with the App and to improve its performance and features.
     </p>
     <p>
-        This may include information such as app usage events, screen views, session duration,
-        device information, and general performance data.
+        This may include app usage events, screen views, session duration, device information,
+        and app performance metrics.
     </p>
     <p>
-        This data is used in aggregate form and is not used to directly identify individual users.
+        This data is used in aggregated form and is not used to identify individual users.
     </p>
 
     <h2>4. Widget</h2>
