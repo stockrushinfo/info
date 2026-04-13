@@ -308,9 +308,9 @@
 
 <header>
     <div class="header-inner">
-        <div class="logo-ring">
-            <img src="img/app-icon.png" alt="StockRush" style="width: 64px; height: 64px;">
-        </div>
+       <!-- <div class="logo-ring">
+            <img src="img/app-icon.png" alt="StockRush" style="width: 32px; height: 32px;">
+        </div>-->
         <div class="name-badges">
             <span class="badge-stock">Stock</span>
             <span class="badge-rush">Rush</span>
@@ -563,20 +563,21 @@
 
     <h3>Google Sign-In</h3>
     <p>
-        Authentication is handled by Google. Please refer to
+        Authentication is handled by Google Sign-In. We receive a user identifier
+        to enable account creation and authentication within the App.
+        Please refer to
         <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>
         for information on how Google processes your data.
     </p>
 
     <h3>Firebase Crashlytics</h3>
     <p>
-        We use Google Firebase Crashlytics to collect crash reports in order to
-        improve app stability and fix bugs.
-        This data may include device model, operating system version, app state,
+        We use Google Firebase Crashlytics to collect crash reports in order to improve app stability
+        and fix bugs. This data may include device model, operating system version, app state,
         and stack traces.
     </p>
     <p>
-        Crash reports do not intentionally include directly identifying personal data,
+        Crash reports are not designed to include directly identifying personal data,
         portfolio information, or financial data.
     </p>
     <p>
@@ -662,7 +663,7 @@
     // Change these values to match your Play Store listing.
     const CONFIG = {
         developerName: 'StockRush',
-        contactEmail: 'manager.wickpics@gmail.com',
+        contactEmail: 'stockrushinfo@gmail.com',
     };
 
     // ── Apply config ───────────────────────────────────────────────────
