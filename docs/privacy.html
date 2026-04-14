@@ -422,7 +422,7 @@
         </thead>
         <tbody>
             <tr>
-                <td>User account (Google ID, refresh token)</td>
+                <td>User account (Google ID, email, name, refresh token)</td>
                 <td>Server</td>
                 <td><span class="badge badge-delete">Deleted immediately</span></td>
             </tr>
@@ -501,10 +501,12 @@
 
     <h3>1.2 Data stored on our server</h3>
     <p>
-        We store the minimum data necessary for authentication:
+        We store the minimum data necessary for authentication and account management:
     </p>
     <ul>
         <li>Google account identifier</li>
+        <li>Email address (used to identify your account for support and deletion requests)</li>
+        <li>Display name (from your Google profile)</li>
         <li>Refresh token (to keep you logged in)</li>
     </ul>
     <p>
@@ -621,7 +623,7 @@
     </p>
     <p>
         Account deletion permanently removes all server-side data associated with your account,
-        including your account identifier and authentication tokens.
+        including your account identifier, email address, display name, and authentication tokens.
     </p>
     <p>
         Local data stored on your device can be removed by using the in-app deletion feature
