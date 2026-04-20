@@ -522,8 +522,22 @@
         and return the structured data to your device.
     </p>
     <p>
-        The uploaded file is processed temporarily in memory and is not stored after processing.
-        We do not retain, store, or intentionally log the contents of the file on our servers.
+        For directly supported brokers (e.g., eToro, Trading 212), parsing is performed locally
+        on our servers using predefined templates.
+    </p>
+    <p>
+        For unsupported brokers, the text extracted from your file may be sent to a
+        third-party AI service (Anthropic Claude) to interpret the file structure and extract
+        transaction data. This text may include personal information contained in your
+        broker statement (e.g., name, account number). We do not control what data your broker
+        includes in exported files. Anthropic processes data via its API without retaining
+        it beyond the duration of the request
+        (see <a href="https://www.anthropic.com/privacy" target="_blank" rel="noopener">their Privacy Policy</a>).
+    </p>
+    <p>
+        In all cases, uploaded files are processed temporarily in memory and are not stored
+        after processing. We do not retain, store, or intentionally log file contents
+        on our servers.
     </p>
 
     <h3>1.4 Data stored on your device</h3>
@@ -555,6 +569,7 @@
     <ul>
         <li>Google (for authentication and crash reporting via Firebase Crashlytics)</li>
         <li>Financial data providers (e.g. Twelve Data, Massive API) for market data</li>
+        <li>Anthropic (for AI-based parsing of unsupported broker files, as described in Section 1.3)</li>
     </ul>
 
     <p>
