@@ -530,9 +530,9 @@
         third-party AI service (Anthropic Claude) to interpret the file structure and extract
         transaction data. This text may include personal information contained in your
         broker statement (e.g., name, account number). We do not control what data your broker
-        includes in exported files. Anthropic processes data via its API without retaining
-        it beyond the duration of the request
-        (see <a href="https://www.anthropic.com/privacy" target="_blank" rel="noopener">their Privacy Policy</a>).
+        includes in exported files. Anthropic processes data via its API according to its
+        own policies and does not retain it beyond the duration of the request, as stated in
+        <a href="https://www.anthropic.com/privacy" target="_blank" rel="noopener">their Privacy Policy</a>.
     </p>
     <p>
         In all cases, uploaded files are processed temporarily in memory and are not stored
@@ -551,31 +551,38 @@
     <ul>
         <li>We do not track your location</li>
         <li>We do not use advertising SDKs or ad tracking</li>
-        <li>We do not sell, share, or transfer personal data to third parties</li>
+        <li>We do not sell personal data</li>
+        <li>We do not share personal data with third parties for marketing purposes</li>
     </ul>
 
     <h2>3. Third-party services</h2>
 
-    <p>The App communicates with our backend server to:</p>
+    <p>The App communicates with our backend to:</p>
     <ul>
-        <li>Authenticate users via Google Sign-In</li>
-        <li>Fetch real-time market data (stock prices, exchange rates)</li>
-        <li>Process uploaded broker files for portfolio import</li>
+        <li>Authenticate users</li>
+        <li>Fetch market data (e.g. stock prices, exchange rates)</li>
+        <li>Process broker file uploads</li>
+    </ul>
+
+    <p>We rely on third-party services including:</p>
+    <ul>
+        <li>Google (authentication, Firebase Crashlytics, Firebase Analytics)</li>
+        <li>Market data providers (for financial data)</li>
+        <li>Anthropic (AI-based parsing, as described in Section 1.3)</li>
     </ul>
 
     <p>
-        We rely on third-party services to operate the App, including:
+        These services may receive limited technical data necessary to operate,
+        such as device information, request metadata, or ticker symbols.
     </p>
-    <ul>
-        <li>Google (for authentication and crash reporting via Firebase Crashlytics)</li>
-        <li>Financial data providers (e.g. Twelve Data, Massive API) for market data</li>
-        <li>Anthropic (for AI-based parsing of unsupported broker files, as described in Section 1.3)</li>
-    </ul>
-
     <p>
-        These services may receive limited technical data necessary to process requests
-        (such as ticker symbols or standard network information). We do not send personal
-        portfolio data or user-identifying information to these providers.
+        In specific cases (see Section 1.3), uploaded files are processed by third-party AI services.
+        The content of these files may include personal information (such as name, account number,
+        or other details included in broker statements).
+    </p>
+    <p>
+        This processing occurs only when necessary to extract portfolio data from unsupported formats,
+        and data is not retained by us after processing.
     </p>
 
     <h3>Google Sign-In</h3>
@@ -650,7 +657,7 @@
 
     <h2>7. Children's privacy</h2>
     <p>
-        StockRush is not intended for use by children under 13.
+        StockRush is not intended for use by children under 13 (or the equivalent minimum age in your jurisdiction).
         We do not knowingly collect data from children.
     </p>
 
