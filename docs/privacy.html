@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -156,6 +156,7 @@
             padding: 24px;
             margin: 20px 0;
         }
+        .card h3:first-child { margin-top: 0; }
 
         /* ── Steps ── */
         .steps { counter-reset: step; margin: 20px 0; }
@@ -235,6 +236,7 @@
             text-align: left;
             padding: 12px 16px;
             border-bottom: 1px solid var(--border);
+            vertical-align: top;
         }
         .data-table th {
             color: var(--subtext);
@@ -250,6 +252,7 @@
             border-radius: 6px;
             font-size: 12px;
             font-weight: 600;
+            white-space: nowrap;
         }
         .badge-delete {
             background: var(--loss-dim);
@@ -260,7 +263,7 @@
             color: var(--accent);
         }
 
-        /* ── Warning box ── */
+        /* ── Warning / info boxes ── */
         .warning {
             background: var(--loss-dim);
             border: 1px solid rgba(255, 107, 107, 0.25);
@@ -270,6 +273,16 @@
             font-size: 14px;
             color: var(--loss);
         }
+        .info {
+            background: var(--accent-dim);
+            border: 1px solid rgba(118, 217, 118, 0.25);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 20px 0;
+            font-size: 14px;
+            color: var(--text);
+        }
+        .info strong { color: var(--accent); }
 
         /* ── Footer ── */
         footer {
@@ -336,8 +349,8 @@
     </p>
 
     <div class="warning">
-        This action is irreversible. Once your account is deleted, all data is permanently removed
-        and cannot be recovered.
+        This action is irreversible. Once your account is deleted, all data — including your
+        portfolio synced to our servers — is permanently removed and cannot be recovered.
     </div>
 
     <h2>Steps to delete your account</h2>
@@ -377,8 +390,9 @@
                 <div class="step-body">
                     <div class="step-title">Confirm deletion</div>
                     <div class="step-desc">
-                        Tap <strong>Delete permanently</strong> to confirm.
-                        Your account and all data will be deleted immediately.
+                        Tap <strong>Delete account</strong> to confirm.
+                        Your account and all associated data — on your device and on our servers —
+                        are deleted immediately.
                     </div>
                 </div>
             </div>
@@ -422,17 +436,32 @@
         </thead>
         <tbody>
             <tr>
-                <td>User account (Google ID / Apple ID, email, name, refresh token)</td>
+                <td>User account (Google&nbsp;ID / Apple&nbsp;ID, email, display name, refresh token)</td>
                 <td>Server</td>
                 <td><span class="badge badge-delete">Deleted immediately</span></td>
             </tr>
             <tr>
-                <td>Portfolio (tickers, quantities, amounts)</td>
-                <td>Device</td>
+                <td>Portfolio &amp; benchmark synced for cross-device restore and notifications (tickers, quantities, invested amounts, purchase dates, dividends)</td>
+                <td>Server</td>
                 <td><span class="badge badge-delete">Deleted immediately</span></td>
             </tr>
             <tr>
-                <td>Settings (currency, benchmark, preferences)</td>
+                <td>Notification preferences &amp; push notification tokens (FCM)</td>
+                <td>Server</td>
+                <td><span class="badge badge-delete">Deleted immediately</span></td>
+            </tr>
+            <tr>
+                <td>Biometric login public key</td>
+                <td>Server</td>
+                <td><span class="badge badge-delete">Deleted immediately</span></td>
+            </tr>
+            <tr>
+                <td>Biometric login private key</td>
+                <td>Device (secure enclave / keystore)</td>
+                <td><span class="badge badge-delete">Deleted immediately</span></td>
+            </tr>
+            <tr>
+                <td>Local portfolio copy &amp; settings (currency, benchmark, country, preferences)</td>
                 <td>Device</td>
                 <td><span class="badge badge-delete">Deleted immediately</span></td>
             </tr>
@@ -458,17 +487,18 @@
         <h3>Data retention</h3>
         <p>
             <strong>StockRush</strong> does not retain any user data after account deletion.
-            No backups, logs, or anonymized copies of your data are kept.
-            The deletion is immediate and permanent.
+            Deleting your account removes both your account record and your synced portfolio
+            from our database. No backups, logs, or anonymized copies of your personal or
+            portfolio data are kept. The deletion is immediate and permanent.
         </p>
     </div>
 
     <h2>Alternative: request deletion via email</h2>
     <p>
         If you can no longer access the app, you can request account deletion by sending an email to
-        <a href="mailto:stockrush.app@gmail.com">stockrush.app@gmail.com</a>
+        <a href="mailto:stockrushinfo@gmail.com">stockrushinfo@gmail.com</a>
         from the email address associated with your account (Google or Apple).
-        We will process your request within 3 business days.
+        We will process your request within 30 days.
     </p>
 
 </div>
@@ -486,9 +516,17 @@
     <p>
         <strong id="dev-name-policy">StockRush</strong> ("we", "us", or "our") operates the
         <strong>StockRush</strong> mobile application (the "App").
-        This page informs you of our policies regarding the collection, use, and disclosure
-        of personal data when you use the App.
+        This page informs you of our policies regarding the collection, use, storage, and disclosure
+        of personal data when you use the App, and of your rights under applicable data protection
+        law, including the EU General Data Protection Regulation (GDPR).
     </p>
+
+    <div class="info">
+        <strong>In short:</strong> we collect the minimum needed to run your account, and we store
+        your portfolio on our servers <em>only</em> to sync it across your devices and to send the
+        daily performance notifications you opt into. We never sell your data, never show ads, and
+        you can delete everything at any time.
+    </div>
 
     <h2>1. Data we collect</h2>
 
@@ -497,35 +535,56 @@
         We use <strong>Google Sign-In</strong> and <strong>Apple Sign-In</strong> (iOS only)
         to authenticate users.
         When you sign in, we receive your email address and a unique identifier from the
-        chosen provider.
-        This data is used solely to create and manage your account within StockRush.
+        chosen provider. This data is used solely to create and manage your account within StockRush.
     </p>
 
-    <h3>1.2 Data stored on our server</h3>
+    <h3>1.2 Data stored on our servers</h3>
     <p>
-        We store the minimum data necessary for authentication and account management:
+        We store the following data, associated with your account, on our servers:
     </p>
     <ul>
         <li>Authentication provider identifier (Google ID or Apple ID)</li>
-        <li>Email address (used to identify your account for support and deletion requests)</li>
+        <li>Email address (to identify your account for support and deletion requests)</li>
         <li>Display name (from your Google or Apple profile)</li>
-        <li>Refresh token (to keep you logged in)</li>
+        <li>Refresh token (to keep you signed in)</li>
+        <li><strong>Your portfolio and benchmark</strong> — see Section 1.3</li>
+        <li>Notification preference and push notification tokens — see Section 1.5</li>
+        <li>Biometric login public key, if you enable biometric login — see Section 1.6</li>
+        <li>A monthly counter of AI-parsing uses (to enforce usage limits — no file content)</li>
+    </ul>
+
+    <h3>1.3 Portfolio data &amp; cross-device sync</h3>
+    <p>
+        Your portfolio is the core of the app, so we sync it to enable a seamless experience.
+        When the app refreshes your live data, your holdings — <strong>ticker symbols, quantities,
+        invested amounts, purchase dates, and accumulated dividends</strong> — together with your
+        <strong>benchmark composition</strong> and your selected currency and country, are stored on
+        our servers and linked to your account.
+    </p>
+    <p>This enables two features:</p>
+    <ul>
+        <li><strong>Cross-device sync</strong> — when you sign in on a new device, your portfolio is
+            automatically restored, so you don't have to re-enter it.</li>
+        <li><strong>Daily performance notifications</strong> — if enabled, our server recalculates
+            your portfolio's daily performance to send you the notification (see Section 1.5).</li>
     </ul>
     <p>
-        <strong>We do not store your portfolio data, financial information, or any other
-        personal data on our servers.</strong>
+        We keep a single, up-to-date copy of your portfolio per account; it is overwritten each time
+        your data is refreshed. We do not use your portfolio for profiling, advertising, or any
+        purpose other than the two features above. You can erase this server copy at any time by
+        deleting your account (see Section 9).
     </p>
 
-    <h3>1.3 Broker file upload</h3>
+    <h3>1.4 Broker file upload &amp; AI parsing</h3>
     <p>
         You may import your portfolio by uploading a broker statement file (Excel/CSV/PDF).
-        The file is sent to our server solely to enable the parsing functionality of the app.
-        We extract portfolio-related information such as ticker symbols, quantities, and transaction amounts,
-        and return the structured data to your device.
+        The file is sent to our server solely to enable the import functionality of the app.
+        We extract portfolio-related information such as ticker symbols, quantities, and transaction
+        amounts, and return the structured data to your device.
     </p>
     <p>
-        For directly supported brokers (e.g., eToro, Trading 212), parsing is performed locally
-        on our servers using predefined templates.
+        For directly supported brokers (e.g., eToro, Trading 212), parsing is performed on our
+        servers using predefined templates.
     </p>
     <p>
         For unsupported brokers, the text extracted from your file may be sent to a
@@ -534,19 +593,51 @@
         broker statement (e.g., name, account number). We do not control what data your broker
         includes in exported files. Anthropic processes data via its API according to its
         own policies and does not retain it beyond the duration of the request, as stated in
-        <a href="https://www.anthropic.com/privacy" target="_blank" rel="noopener">their Privacy Policy</a>.
+        <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">their Privacy Policy</a>.
     </p>
     <p>
-        In all cases, uploaded files are processed temporarily in memory and are not stored
-        after processing. We do not retain, store, or intentionally log file contents
-        on our servers.
+        In all cases, uploaded files are processed temporarily in memory and are <strong>not stored</strong>
+        after processing. We do not retain, store, or intentionally log file contents on our servers.
+        For unsupported brokers, the extracted text is transmitted securely to the third-party AI
+        service described above solely to perform the parsing, and is not retained by that service
+        beyond the duration of the request. The portfolio extracted from a file is then handled as
+        described in Section 1.3.
     </p>
 
-    <h3>1.4 Data stored on your device</h3>
+    <h3>1.5 Push notifications</h3>
     <p>
-        Your portfolio data (tickers, quantities, amounts, settings, benchmarks)
-        is stored locally on your device. This data never leaves your device except
-        as described in Sections 1.3 and 3.
+        Daily performance notifications are <strong>optional</strong> and turned off by default.
+        You can enable or disable them at any time in <strong>Settings &rarr; Notifications</strong>.
+    </p>
+    <p>
+        If you enable them, we store a push notification token (provided by
+        <strong>Firebase Cloud Messaging</strong>) and your notification preference on our servers.
+        Once a day, after market close, our server uses the portfolio stored under Section 1.3 to
+        compute your portfolio's daily percentage change and how it compares to your benchmark, and
+        sends you a notification. The notification contains only percentage values — it does not
+        include your holdings, amounts, or other identifying details.
+    </p>
+    <p>
+        When you disable notifications, sign out, or delete your account, the associated token and
+        preference are removed from our servers.
+    </p>
+
+    <h3>1.6 Biometric login</h3>
+    <p>
+        You can optionally enable biometric login (fingerprint or Face ID). When you do, a
+        cryptographic key pair is generated <strong>on your device</strong>. The
+        <strong>private key never leaves your device</strong> and is kept in the device's secure
+        hardware (Secure Enclave on iOS, Keystore on Android). Only the corresponding
+        <strong>public key</strong> is sent to our servers, where it is used to verify a
+        challenge-response at sign-in. Biometric data itself (your fingerprint or face) is never
+        accessed by, or transmitted to, StockRush — it stays within your device's operating system.
+    </p>
+
+    <h3>1.7 Data stored on your device</h3>
+    <p>
+        A copy of your portfolio (tickers, quantities, amounts, dates, dividends), your settings,
+        benchmarks, authentication tokens, and the biometric private key are stored locally on your
+        device. Local data leaves your device only as described in Sections 1.3–1.6.
     </p>
 
     <h2>2. Data we do NOT collect</h2>
@@ -555,136 +646,167 @@
         <li>We do not use advertising SDKs or ad tracking</li>
         <li>We do not sell personal data</li>
         <li>We do not share personal data with third parties for marketing purposes</li>
+        <li>We do not use your portfolio data for profiling or automated decision-making</li>
     </ul>
 
-    <h2>3. Third-party services</h2>
+    <h2>3. Legal basis for processing (GDPR)</h2>
+    <p>If you are in the European Economic Area, we process your personal data on the following legal bases:</p>
+    <ul>
+        <li><strong>Performance of a contract</strong> (Art. 6(1)(b)) — to provide the App's core
+            functionality: account management, authentication, and syncing/restoring your portfolio.</li>
+        <li><strong>Consent</strong> (Art. 6(1)(a)) — for optional features you explicitly enable,
+            such as push notifications and biometric login, and for analytics where consent is required.
+            You may withdraw consent at any time.</li>
+        <li><strong>Legitimate interests</strong> (Art. 6(1)(f)) — to keep the App secure, stable,
+            and free of bugs (e.g., crash reporting), balanced against your rights.</li>
+    </ul>
+
+    <h2>4. Third-party services</h2>
 
     <p>The App communicates with our backend to:</p>
     <ul>
         <li>Authenticate users</li>
         <li>Fetch market data (e.g. stock prices, exchange rates)</li>
+        <li>Sync and restore your portfolio</li>
         <li>Process broker file uploads</li>
+        <li>Send daily performance notifications (if enabled)</li>
     </ul>
 
     <p>We rely on third-party services including:</p>
     <ul>
-        <li>Google (authentication, Firebase Crashlytics, Firebase Analytics)</li>
-        <li>Apple (authentication via Sign in with Apple, iOS only)</li>
+        <li>Google (authentication, Firebase Crashlytics, Firebase Analytics, Firebase Cloud Messaging)</li>
+        <li>Apple (authentication via Sign in with Apple, and Apple Push Notification service on iOS)</li>
         <li>Market data providers (for financial data)</li>
-        <li>Anthropic (AI-based parsing, as described in Section 1.3)</li>
+        <li>Anthropic (AI-based parsing of unsupported broker files, as described in Section 1.4)</li>
     </ul>
 
     <p>
         These services may receive limited technical data necessary to operate,
-        such as device information, request metadata, or ticker symbols.
-    </p>
-    <p>
-        In specific cases (see Section 1.3), uploaded files are processed by third-party AI services.
-        The content of these files may include personal information (such as name, account number,
-        or other details included in broker statements).
-    </p>
-    <p>
-        This processing occurs only when necessary to extract portfolio data from unsupported formats,
-        and data is not retained by us after processing.
+        such as device information, request metadata, push tokens, or ticker symbols.
     </p>
 
     <h3>Google Sign-In</h3>
     <p>
-        Authentication is handled by Google Sign-In. We receive a user identifier
-        to enable account creation and authentication within the App.
-        Please refer to
-        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>
-        for information on how Google processes your data.
+        Authentication is handled by Google Sign-In. We receive a user identifier and email address
+        to enable account creation and authentication within the App. Please refer to
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>.
     </p>
 
     <h3>Apple Sign-In (iOS)</h3>
     <p>
         On iOS devices, authentication can also be handled by Sign in with Apple.
         We receive a user identifier and, if you choose to share it, your email address
-        (which may be an Apple private relay address).
-        Please refer to
-        <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">Apple's Privacy Policy</a>
-        for information on how Apple processes your data.
+        (which may be an Apple private relay address). Please refer to
+        <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">Apple's Privacy Policy</a>.
+    </p>
+
+    <h3>Firebase Cloud Messaging</h3>
+    <p>
+        If you enable notifications, we use Google Firebase Cloud Messaging (and, on iOS, the Apple
+        Push Notification service) to deliver them. A device push token is stored on our servers so
+        we can send you the daily performance notification. See
+        <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Firebase Privacy</a>.
     </p>
 
     <h3>Firebase Crashlytics</h3>
     <p>
         We use Google Firebase Crashlytics to collect crash reports in order to improve app stability
         and fix bugs. This data may include device model, operating system version, app state,
-        and stack traces.
-    </p>
-    <p>
-        Crash reports are not designed to include directly identifying personal data,
-        portfolio information, or financial data.
-    </p>
-    <p>
-        For more information, see
+        and stack traces. Crash reports are not designed to include directly identifying personal data,
+        portfolio information, or financial data. For more information, see
         <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Firebase Privacy</a>.
     </p>
 
     <h3>Analytics</h3>
     <p>
         We use analytics services such as Google Firebase Analytics to understand how users interact
-        with the App and to improve its performance and features.
-    </p>
-    <p>
-        This may include app usage events, screen views, session duration, device information,
-        and app performance metrics.
-    </p>
-    <p>
+        with the App and to improve its performance and features. This may include app usage events,
+        screen views, session duration, device information, and app performance metrics.
         This data is used in aggregated form and is not used to identify individual users.
     </p>
 
-    <h2>4. Widget</h2>
+    <h2>5. Your rights</h2>
+    <p>
+        Depending on your jurisdiction (and in particular under the GDPR), you have the right to:
+    </p>
+    <ul>
+        <li><strong>Access</strong> the personal data we hold about you</li>
+        <li><strong>Rectify</strong> inaccurate or incomplete data</li>
+        <li><strong>Erase</strong> your data ("right to be forgotten") — available directly in-app via account deletion</li>
+        <li><strong>Restrict</strong> or <strong>object</strong> to certain processing</li>
+        <li><strong>Data portability</strong> — receive your data in a structured, machine-readable format</li>
+        <li><strong>Withdraw consent</strong> at any time for features based on consent (e.g. notifications)</li>
+        <li><strong>Lodge a complaint</strong> with your local data protection authority</li>
+    </ul>
+    <p>
+        To exercise any of these rights, contact us at
+        <a href="mailto:stockrushinfo@gmail.com">stockrushinfo@gmail.com</a>.
+        We respond to requests within 30 days.
+    </p>
+
+    <h2>6. Widget</h2>
     <p>
         The StockRush widget displays your portfolio performance on your home screen.
         The widget reads data stored locally on your device and periodically fetches
         updated market prices from our server. Only ticker symbols and your preferred
-        currency are sent to the server &mdash; no personal or financial data.
+        currency are sent to the server for this purpose &mdash; the widget's refresh does not
+        write or alter your stored portfolio.
     </p>
 
-    <h2>5. Data security</h2>
+    <h2>7. Data security</h2>
     <p>
         All communication between the App and our server is encrypted using HTTPS/TLS.
-        Authentication tokens are stored securely on your device.
-        We do not have access to your portfolio data.
+        Authentication tokens and your biometric private key are stored securely on your device.
+        Access to data on our servers is restricted and authenticated. While no method of
+        transmission or storage is 100% secure, we take reasonable measures to protect your data.
     </p>
 
-    <h2>6. Account deletion</h2>
+    <h2>8. Data retention</h2>
+    <p>
+        We retain your account data and synced portfolio for as long as your account exists.
+        Uploaded broker files are not stored: they are processed temporarily in memory and, for
+        unsupported brokers, transmitted securely to a third-party AI service for parsing
+        (see Section 1.4). When you delete your
+        account, all personal data and your synced portfolio are removed immediately and permanently,
+        with no backups or anonymized copies retained (see Section 9 and the
+        <a href="#" onclick="showSection('deletion'); return false;">Account Deletion</a> page).
+    </p>
+
+    <h2>9. Account deletion</h2>
     <p>
         You can delete your account at any time from within the App
         (Settings &rarr; Delete account) or by contacting us at
-        <a href="mailto:stockrush.app@gmail.com">stockrush.app@gmail.com</a>.
+        <a href="mailto:stockrushinfo@gmail.com">stockrushinfo@gmail.com</a>.
     </p>
     <p>
         Account deletion permanently removes all server-side data associated with your account,
-        including your account identifier, email address, display name, and authentication tokens.
+        including your account identifier, email address, display name, authentication tokens,
+        your synced portfolio and benchmark, notification preferences and push tokens, and any
+        biometric public key.
     </p>
     <p>
         Local data stored on your device can be removed by using the in-app deletion feature
-        or by uninstalling the application.
-    </p>
-    <p>
-        We do not retain any personal data after account deletion.
+        or by uninstalling the application. We do not retain any personal data after account deletion.
     </p>
 
-    <h2>7. Children's privacy</h2>
+    <h2>10. Children's privacy</h2>
     <p>
         StockRush is not intended for use by children under 13 (or the equivalent minimum age in your jurisdiction).
         We do not knowingly collect data from children.
     </p>
 
-    <h2>8. Changes to this policy</h2>
+    <h2>11. Changes to this policy</h2>
     <p>
         We may update this Privacy Policy from time to time.
         Changes will be posted on this page with an updated date.
         Your continued use of the App constitutes acceptance of the updated policy.
     </p>
 
-    <h2>9. Contact us</h2>
+    <h2>12. Contact us</h2>
     <p>
-        If you have questions about this Privacy Policy, please contact us at:<br>
-        <a href="mailto:stockrush.app@gmail.com">stockrush.app@gmail.com</a>
+        If you have questions about this Privacy Policy or wish to exercise your rights,
+        please contact us at:<br>
+        <a href="mailto:stockrushinfo@gmail.com">stockrushinfo@gmail.com</a>
     </p>
 
 </div>
@@ -697,15 +819,17 @@
 
 <script>
     // ── Configuration ──────────────────────────────────────────────────
-    // Change these values to match your Play Store listing.
+    // Change these values to match your store listing.
     const CONFIG = {
         developerName: 'StockRush',
         contactEmail: 'stockrushinfo@gmail.com',
+        // Fixed "last updated" date for the policy (YYYY-MM-DD). Update when the policy changes.
+        lastUpdated: '2026-06-13',
     };
 
     // ── Apply config ───────────────────────────────────────────────────
     document.getElementById('policy-date').textContent =
-        new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        new Date(CONFIG.lastUpdated + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
     document.getElementById('footer-year').textContent = new Date().getFullYear();
     document.getElementById('dev-name-policy').textContent = CONFIG.developerName;
     document.querySelectorAll('.footer-dev-name').forEach(el => el.textContent = CONFIG.developerName);
@@ -719,7 +843,10 @@
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
         document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
         document.getElementById(id).classList.add('active');
-        event.currentTarget.classList.add('active');
+        // Sync the active tab (works whether triggered by a tab button or an in-page link)
+        const tabs = document.querySelectorAll('.nav-tab');
+        if (id === 'privacy' && tabs[0]) tabs[0].classList.add('active');
+        else if (id === 'deletion' && tabs[1]) tabs[1].classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 </script>
