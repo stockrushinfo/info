@@ -345,12 +345,13 @@
 
     <h1>Delete your account</h1>
     <p class="subtitle">
-        How to permanently delete your <strong>StockRush</strong> account and all associated data.
+        How to delete your <strong>StockRush</strong> account and understand what happens to your data.
     </p>
 
     <div class="warning">
-        This action is irreversible. Once your account is deleted, all data — including your
-        portfolio synced to our servers — is permanently removed and cannot be recovered.
+        This action is irreversible through the app. Successful deletion removes your account
+        and synced portfolio from the active database. Technical and provider-held records are
+        subject to the retention conditions below.
     </div>
 
     <h2>Steps to delete your account</h2>
@@ -391,8 +392,8 @@
                     <div class="step-title">Confirm deletion</div>
                     <div class="step-desc">
                         Tap <strong>Delete account</strong> to confirm.
-                        Your account and all associated data — on your device and on our servers —
-                        are deleted immediately.
+                        Successful deletion removes your account and synced portfolio from the active
+                        database and revokes your sessions. Technical records expire separately.
                     </div>
                 </div>
             </div>
@@ -424,7 +425,8 @@
 
     <!-- Data deleted -->
     <h2>What gets deleted</h2>
-    <p>When you delete your account, the following data is permanently removed:</p>
+    <p>The table describes successful account deletion. Device cleanup applies to the requesting
+        device only; it does not remotely erase other devices or their backups.</p>
 
     <table class="data-table">
         <thead>
@@ -436,7 +438,7 @@
         </thead>
         <tbody>
             <tr>
-                <td>User account (Google&nbsp;ID / Apple&nbsp;ID, email, display name, refresh token)</td>
+                <td>User account (Google&nbsp;ID / Apple&nbsp;ID, email, display name)</td>
                 <td>Server</td>
                 <td><span class="badge badge-delete">Deleted immediately</span></td>
             </tr>
@@ -457,7 +459,7 @@
             </tr>
             <tr>
                 <td>Biometric login private key</td>
-                <td>Device (secure enclave / keystore)</td>
+                <td>Device (operating-system secure storage)</td>
                 <td><span class="badge badge-delete">Deleted immediately</span></td>
             </tr>
             <tr>
@@ -478,7 +480,7 @@
             <tr>
                 <td>Uploaded broker files</td>
                 <td>Server</td>
-                <td><span class="badge badge-local">Never stored</span></td>
+                <td><span class="badge badge-local">Processed for import; see Section 1.4</span></td>
             </tr>
         </tbody>
     </table>
@@ -486,10 +488,10 @@
     <div class="card">
         <h3>Data retention</h3>
         <p>
-            <strong>StockRush</strong> does not retain any user data after account deletion.
-            Deleting your account removes both your account record and your synced portfolio
-            from our database. No backups, logs, or anonymized copies of your personal or
-            portfolio data are kept. The deletion is immediate and permanent.
+            Successful deletion removes the account and synced portfolio from the active database.
+            App and widget sessions are revoked. Session records and token hashes remain until
+            expiry and automatic cleanup. Deletion does not itself erase provider-held telemetry,
+            infrastructure logs or backups. See Section 8 for retention.
         </p>
     </div>
 
@@ -523,9 +525,9 @@
 
     <div class="info">
         <strong>In short:</strong> we collect the minimum needed to run your account, and we store
-        your portfolio on our servers <em>only</em> to sync it across your devices and to send the
-        daily performance notifications you opt into. We never sell your data, never show ads, and
-        you can delete everything at any time.
+        your portfolio on our servers to sync it, calculate performance and deliver optional
+        notifications. We never sell your data or show ads. Account deletion and its retention
+        limits are explained below.
     </div>
 
     <h2>1. Data we collect</h2>
@@ -546,7 +548,9 @@
         <li>Authentication provider identifier (Google ID or Apple ID)</li>
         <li>Email address (to identify your account for support and deletion requests)</li>
         <li>Display name (from your Google or Apple profile)</li>
-        <li>Refresh token (to keep you signed in)</li>
+        <li>App and widget session records: refresh-token hashes, account and session identifiers,
+            installation identifier, creation and expiry dates, and revocation status. These
+            support authentication, token renewal and protection against token reuse.</li>
         <li><strong>Your portfolio and benchmark</strong> — see Section 1.3</li>
         <li>Notification preference and push notification tokens — see Section 1.5</li>
         <li>Biometric login public key, if you enable biometric login — see Section 1.6</li>
@@ -561,7 +565,8 @@
         <strong>benchmark composition</strong> and your selected currency and country, are stored on
         our servers and linked to your account.
     </p>
-    <p>This enables two features:</p>
+    <p>This enables portfolio performance calculations, charts and benchmark comparisons for
+        the app and widget, as well as the following features:</p>
     <ul>
         <li><strong>Cross-device sync</strong> — when you sign in on a new device, your portfolio is
             automatically restored, so you don't have to re-enter it.</li>
@@ -569,9 +574,10 @@
             your portfolio's daily performance to send you the notification (see Section 1.5).</li>
     </ul>
     <p>
-        We keep a single, up-to-date copy of your portfolio per account; it is overwritten each time
-        your data is refreshed. We do not use your portfolio for profiling, advertising, or any
-        purpose other than the two features above. You can erase this server copy at any time by
+        We keep an up-to-date portfolio snapshot per account. Read-only requests, including widget
+        refreshes, do not overwrite it. We do not use your portfolio for advertising. Some ticker
+        and broker interactions are collected as analytics, as described in Section 4.
+        You can erase the active server portfolio copy by
         deleting your account (see Section 9).
     </p>
 
@@ -591,17 +597,17 @@
         third-party AI service (Anthropic Claude) to interpret the file structure and extract
         transaction data. This text may include personal information contained in your
         broker statement (e.g., name, account number). We do not control what data your broker
-        includes in exported files. Anthropic processes data via its API according to its
-        own policies and does not retain it beyond the duration of the request, as stated in
+        includes in exported files. Anthropic processes the text under the terms and retention
+        conditions applicable to its API service. We do not promise immediate deletion by Anthropic.
+        For general information, see
         <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">their Privacy Policy</a>.
     </p>
     <p>
-        In all cases, uploaded files are processed temporarily in memory and are <strong>not stored</strong>
-        after processing. We do not retain, store, or intentionally log file contents on our servers.
-        For unsupported brokers, the extracted text is transmitted securely to the third-party AI
-        service described above solely to perform the parsing, and is not retained by that service
-        beyond the duration of the request. The portfolio extracted from a file is then handled as
-        described in Section 1.3.
+        Uploaded files are used for processing, not kept as a broker-document archive. Processing
+        may involve temporary upload storage. The application does not intentionally log file
+        contents. For unsupported brokers, extracted text is securely sent to Anthropic for parsing,
+        subject to the applicable API retention conditions. Avoid uploading unnecessary personal
+        information. The resulting portfolio is handled as described in Section 1.3.
     </p>
 
     <h3>1.5 Push notifications</h3>
@@ -627,7 +633,8 @@
         You can optionally enable biometric login (fingerprint or Face ID). When you do, a
         cryptographic key pair is generated <strong>on your device</strong>. The
         <strong>private key never leaves your device</strong> and is kept in the device's secure
-        hardware (Secure Enclave on iOS, Keystore on Android). Only the corresponding
+        storage provided by the operating system (Keychain on iOS, Keystore on Android).
+        Hardware-backed protection depends on the device and implementation. Only the corresponding
         <strong>public key</strong> is sent to our servers, where it is used to verify a
         challenge-response at sign-in. Biometric data itself (your fingerprint or face) is never
         accessed by, or transmitted to, StockRush — it stays within your device's operating system.
@@ -637,7 +644,9 @@
     <p>
         A copy of your portfolio (tickers, quantities, amounts, dates, dividends), your settings,
         benchmarks, authentication tokens, and the biometric private key are stored locally on your
-        device. Local data leaves your device only as described in Sections 1.3–1.6.
+        device. An installation identifier may remain locally after account deletion. Data is
+        transmitted for the purposes described throughout this policy, including authentication,
+        analytics and widget refreshes.
     </p>
 
     <h2>2. Data we do NOT collect</h2>
@@ -722,7 +731,10 @@
         We use analytics services such as Google Firebase Analytics to understand how users interact
         with the App and to improve its performance and features. This may include app usage events,
         screen views, session duration, device information, and app performance metrics.
-        This data is used in aggregated form and is not used to identify individual users.
+        Event parameters also include ticker symbols, benchmarks, broker or provider names,
+        country and currency selections, and market-search text. Analytics collection is enabled
+        automatically in the current app configuration, with no separate in-app analytics consent
+        switch. Aggregated reporting does not make the underlying event collection anonymous.
     </p>
 
     <h2>5. Your rights</h2>
@@ -748,9 +760,10 @@
     <p>
         The StockRush widget displays your portfolio performance on your home screen.
         The widget reads data stored locally on your device and periodically fetches
-        updated market prices from our server. Only ticker symbols and your preferred
-        currency are sent to the server for this purpose &mdash; the widget's refresh does not
-        write or alter your stored portfolio.
+        updated prices and performance calculations from our server. Requests include local
+        portfolio records and benchmark holdings, country, currency and chart-period parameters,
+        and authentication credentials for a separate widget session. They are not limited to
+        ticker symbols. Widget refreshes do not overwrite the saved server portfolio snapshot.
     </p>
 
     <h2>7. Data security</h2>
@@ -763,13 +776,19 @@
 
     <h2>8. Data retention</h2>
     <p>
-        We retain your account data and synced portfolio for as long as your account exists.
-        Uploaded broker files are not stored: they are processed temporarily in memory and, for
-        unsupported brokers, transmitted securely to a third-party AI service for parsing
-        (see Section 1.4). When you delete your
-        account, all personal data and your synced portfolio are removed immediately and permanently,
-        with no backups or anonymized copies retained (see Section 9 and the
-        <a href="#" onclick="showSection('deletion'); return false;">Account Deletion</a> page).
+        Successful deletion removes the account record and synced portfolio from the active
+        database and revokes app and widget sessions. Session records, including token hashes,
+        account and installation identifiers, timestamps and revocation status, remain until
+        their recorded expiry dates and automatic database cleanup. The repository configuration
+        uses a seven-day refresh-token lifetime; later-issued tokens have their own expiry dates.
+        Cleanup is asynchronous. Short-lived biometric challenges also expire automatically.
+        Upload and AI processing are described in Section 1.4.
+    </p>
+    <p>
+        Account deletion does not automatically erase previously collected Firebase telemetry
+        or other provider-held data. Applicable provider retention conditions also apply.
+        We do not promise immediate erasure of infrastructure logs or backup copies.
+        Contact us for retention information or to exercise deletion rights.
     </p>
 
     <h2>9. Account deletion</h2>
@@ -779,14 +798,15 @@
         <a href="mailto:stockrushinfo@gmail.com">stockrushinfo@gmail.com</a>.
     </p>
     <p>
-        Account deletion permanently removes all server-side data associated with your account,
-        including your account identifier, email address, display name, authentication tokens,
-        your synced portfolio and benchmark, notification preferences and push tokens, and any
-        biometric public key.
+        Successful deletion removes the active account record, including provider identifiers,
+        email, display name, notification preferences, push tokens and biometric public key,
+        and the synced portfolio and benchmark. Sessions are revoked. Technical records and
+        provider-held data are subject to the retention conditions in Section 8.
     </p>
     <p>
-        Local data stored on your device can be removed by using the in-app deletion feature
-        or by uninstalling the application. We do not retain any personal data after account deletion.
+        The deletion flow clears account-related local data on the requesting device, not other
+        devices, exported files or backups. An installation identifier may remain locally.
+        Uninstalling the app alone does not delete your server account.
     </p>
 
     <h2>10. Children's privacy</h2>
@@ -799,7 +819,7 @@
     <p>
         We may update this Privacy Policy from time to time.
         Changes will be posted on this page with an updated date.
-        Your continued use of the App constitutes acceptance of the updated policy.
+        Where consent is required for a change, continued use alone is not a substitute for consent.
     </p>
 
     <h2>12. Contact us</h2>
@@ -824,7 +844,7 @@
         developerName: 'StockRush',
         contactEmail: 'stockrushinfo@gmail.com',
         // Fixed "last updated" date for the policy (YYYY-MM-DD). Update when the policy changes.
-        lastUpdated: '2026-06-13',
+        lastUpdated: '2026-09-06',
     };
 
     // ── Apply config ───────────────────────────────────────────────────
