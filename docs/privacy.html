@@ -575,8 +575,9 @@
     </ul>
     <p>
         We keep an up-to-date portfolio snapshot per account. Read-only requests, including widget
-        refreshes, do not overwrite it. We do not use your portfolio for advertising. Some ticker
-        and broker interactions are collected as analytics, as described in Section 4.
+        refreshes, do not overwrite it. We do not use your portfolio for advertising. Some interactions
+        with positions and brokers are counted as analytics events — without ticker symbols or portfolio
+        values — as described in Section 4.
         You can erase the active server portfolio copy by
         deleting your account (see Section 9).
     </p>
@@ -711,9 +712,12 @@
 
     <h3>Firebase Cloud Messaging</h3>
     <p>
-        If you enable notifications, we use Google Firebase Cloud Messaging (and, on iOS, the Apple
-        Push Notification service) to deliver them. A device push token is stored on our servers so
-        we can send you the daily performance notification. See
+        The App includes Google Firebase Cloud Messaging (and, on iOS, the Apple Push Notification
+        service) to deliver notifications. When the App starts, the Firebase SDK can generate a Firebase
+        installation identifier and a device push token and exchange them with Firebase, together with
+        app and device configuration data, even if you have not enabled notifications. Only if you
+        enable notifications is the push token sent to and stored on our servers, so we can send you
+        the daily performance notification. See
         <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Firebase Privacy</a>.
     </p>
 
@@ -729,10 +733,19 @@
     <h3>Analytics</h3>
     <p>
         We use analytics services such as Google Firebase Analytics to understand how users interact
-        with the App and to improve its performance and features. This may include app usage events,
-        screen views, session duration, device information, and app performance metrics.
-        Event parameters also include ticker symbols, benchmarks, broker or provider names,
-        country and currency selections, and market-search text. Analytics collection is enabled
+        with the App and to improve it. This may include app usage events such as app opens and
+        sessions, session duration and device information, which the Firebase SDK collects
+        automatically. Screen changes inside the App are not detected automatically by the SDK: the
+        App sends its own navigation events, which say which tab is opened. The parameters that the
+        App itself attaches to its events come from a closed list: the asset type (stock, ETF
+        or crypto), the broker code selected in the App (eToro, Trading 212, Fineco, DEGIRO, other,
+        none, manual entry, or all brokers when filtering), the login method (Google, Apple or
+        biometric), the selected currency (US dollar, euro or pound sterling) and time period (day,
+        week, month, year, year to date or all time), the screen or tab (portfolio, analytics or
+        markets), on/off switches (notifications, biometric login), whether a position was entered by
+        units or by amount, and counts (whole numbers, for example how many positions an import
+        contains or how many remain after a removal). They never include ticker symbols, benchmark
+        names, country, search text, amounts or other portfolio values. Analytics collection is enabled
         automatically in the current app configuration, with no separate in-app analytics consent
         switch. Aggregated reporting does not make the underlying event collection anonymous.
     </p>
@@ -844,7 +857,7 @@
         developerName: 'StockRush',
         contactEmail: 'stockrushinfo@gmail.com',
         // Fixed "last updated" date for the policy (YYYY-MM-DD). Update when the policy changes.
-        lastUpdated: '2026-09-06',
+        lastUpdated: '2026-09-25',
     };
 
     // ── Apply config ───────────────────────────────────────────────────
