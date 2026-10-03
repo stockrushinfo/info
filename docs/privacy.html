@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StockRush — Privacy Policy & Account Deletion</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>StockRush — Privacy, Account Deletion & Terms</title>
     <style>
         :root {
             --bg: #0D0F14;
@@ -43,6 +41,30 @@
             align-items: center;
             gap: 14px;
         }
+        .language-switch {
+            margin-left: auto;
+            display: flex;
+            gap: 6px;
+        }
+        .language-option {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 44px;
+            min-height: 44px;
+            padding: 8px 10px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--subtext);
+            font-size: 13px;
+            font-weight: 700;
+        }
+        .language-option[aria-current="true"] {
+            border-color: var(--accent);
+            background: var(--accent-dim);
+            color: var(--accent);
+        }
+        .language-option:hover { text-decoration: none; color: var(--text); }
         .logo-ring {
             width: 72px; height: 72px;
             border-radius: 24px;
@@ -89,7 +111,7 @@
             max-width: 800px;
             margin: 0 auto;
             padding: 24px 24px 0;
-            display: flex; gap: 8px;
+            display: flex; flex-wrap: wrap; gap: 8px;
         }
         .nav-tab {
             padding: 10px 20px;
@@ -103,6 +125,8 @@
             transition: all 0.2s;
         }
         .nav-tab:hover { border-color: var(--accent); color: var(--text); }
+        .nav-tab:hover { text-decoration: none; }
+        a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
         .nav-tab.active {
             background: var(--accent-dim);
             border-color: var(--accent);
@@ -115,8 +139,26 @@
             margin: 0 auto;
             padding: 32px 24px 80px;
         }
-        .section { display: none; }
-        .section.active { display: block; }
+        /* Without JavaScript every document remains readable, including deep links. */
+        .js .section { display: none; }
+        .js .section.active { display: block; }
+        .section { scroll-margin-top: 24px; }
+        .terms-summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+        .terms-summary .card { margin: 0; }
+        .terms-price { font-size: 24px; color: var(--text); font-weight: 700; }
+        p, li, td { overflow-wrap: anywhere; }
+        @media (max-width: 560px) {
+            .nav-tab { padding: 10px 12px; }
+            .terms-summary { grid-template-columns: 1fr; }
+        }
+        @media print {
+            .js .section { display: none; }
+            .js .section.active { display: block; }
+            nav, .language-switch { display: none; }
+            body { background: white; color: black; }
+            p, li, strong, a, .subtitle, .terms-price { color: black; }
+            .section { break-before: page; }
+        }
 
         h1 {
             font-size: 28px; font-weight: 700;
@@ -328,12 +370,17 @@
             <span class="badge-stock">Stock</span>
             <span class="badge-rush">Rush</span>
         </div>
+        <div class="language-switch" aria-label="Choose language">
+            <a class="language-option" href="?lang=it#privacy" data-language="it" lang="it" aria-label="Italiano">IT</a>
+            <a class="language-option" href="?lang=en#privacy" data-language="en" lang="en" aria-label="English" aria-current="true">ENG</a>
+        </div>
     </div>
 </header>
 
-<nav>
-    <button class="nav-tab active" onclick="showSection('privacy')">Privacy Policy</button>
-    <button class="nav-tab" onclick="showSection('deletion')">Account Deletion</button>
+<nav aria-label="Legal documents">
+    <a class="nav-tab active" href="?lang=en#privacy" data-document="privacy" data-it="Privacy" data-en="Privacy" aria-current="page">Privacy</a>
+    <a class="nav-tab" href="?lang=en#deletion" data-document="deletion" data-it="Elimina account" data-en="Delete account">Delete account</a>
+    <a class="nav-tab" href="?lang=en#subscriptions" data-document="subscriptions" data-it="Termini" data-en="Terms">Terms</a>
 </nav>
 
 <main>
@@ -341,8 +388,65 @@
 <!-- ════════════════════════════════════════════════════════════════════════ -->
 <!-- SECTION 1 — ACCOUNT DELETION                                          -->
 <!-- ════════════════════════════════════════════════════════════════════════ -->
-<div id="deletion" class="section">
+<div id="deletion" class="section" lang="it">
+    <h1>Elimina il tuo account</h1>
+    <p class="subtitle">Come cancellare l'account StockRush e quali dati possono restare.</p>
+    <div class="warning">L'eliminazione non può essere annullata dall'app: rimuove l'account e il
+        portafoglio sincronizzato dal database attivo e revoca le sessioni. Alcuni record tecnici e
+        d'acquisto sono conservati separatamente come indicato nella <a href="#privacy">Privacy</a>.
+        Non cancella automaticamente copie su altri dispositivi, backup, log o dati detenuti dai fornitori.</div>
+    <div class="info"><strong>Hai Pro?</strong> Eliminare l'account o disinstallare l'app non disdice
+        l'abbonamento su App Store o Google Play. Gestisci il rinnovo nello store che ti addebita il
+        costo, anche se elimini l'account. Puoi comunque chiedere la cancellazione mentre sei abbonato.
+        Vedi i <a href="#subscriptions">Termini degli abbonamenti</a>.</div>
+    <h2>Come fare</h2>
+    <ol>
+        <li>Apri il menu dell'app dall'icona in alto a sinistra.</li>
+        <li>Entra in <strong>Impostazioni</strong>.</li>
+        <li>Seleziona <strong>Elimina account</strong> in fondo alla schermata.</li>
+        <li>Conferma. L'app elimina account e portafoglio attivi e revoca le sessioni.</li>
+    </ol>
+    <h2>Dove trovarlo</h2>
+    <div class="screenshots">
+        <div class="screenshot">
+            <img src="img/drawer-settings.png" alt="Menu laterale con la voce Impostazioni">
+            <div class="screenshot-caption">1 &mdash; Apri Impostazioni dal menu</div>
+        </div>
+        <div class="screenshot">
+            <img src="img/settings-delete.png" alt="Impostazioni con la voce Elimina account">
+            <div class="screenshot-caption">2 &mdash; Elimina account nelle Impostazioni</div>
+        </div>
+    </div>
+    <h2>Che cosa viene eliminato</h2>
+    <table class="data-table">
+        <thead><tr><th>Dati</th><th>Dove</th><th>Esito dopo cancellazione riuscita</th></tr></thead>
+        <tbody>
+            <tr><td>Account, identificativi Google/Apple, email, nome, chiave pubblica biometrica</td><td>Server</td><td>Rimossi dal database attivo</td></tr>
+            <tr><td>Portafoglio e benchmark sincronizzati, preferenze notifiche e token push</td><td>Server</td><td>Rimossi dal database attivo</td></tr>
+            <tr><td>Sessioni app e widget</td><td>Server</td><td>Revocate; record e hash dei token restano fino a scadenza e pulizia automatica</td></tr>
+            <tr><td>Record pseudonimi di acquisto e verifica</td><td>Server</td><td>Alcuni restano. Un codice protetto derivato dall'identità Google/Apple usata per accedere a StockRush può consentire il ripristino verificato anche su un nuovo account creato con la stessa identità; non ricrea il portafoglio. Periodo da definire prima delle vendite.</td></tr>
+            <tr><td>Token di autorizzazione Sign in with Apple</td><td>Server</td><td>Rimosso con l'account. Tentiamo la revoca presso Apple; un errore o una configurazione mancante non blocca la cancellazione e può lasciare l'autorizzazione attiva presso Apple.</td></tr>
+            <tr><td>Copia locale del portafoglio, impostazioni, token e cache widget</td><td>Dispositivo da cui elimini l'account</td><td>Puliti dal flusso dell'app; altri dispositivi e backup non sono cancellati da remoto</td></tr>
+            <tr><td>Chiave privata biometrica</td><td>Archivio sicuro del dispositivo</td><td>Rimossa dal dispositivo da cui elimini l'account</td></tr>
+            <tr><td>File caricati dal broker</td><td>Elaborazione server</td><td>Usati per l'importazione; vedi Privacy §2</td></tr>
+            <tr><td>Risposte conservate per tentativi ripetuti di importazione, verifica o ripristino acquisti</td><td>Server</td><td>Rimosse dal database attivo; senza cancellazione scadono dopo 24 ore, con pulizia asincrona. I record d'acquisto separati seguono i criteri sopra indicati.</td></tr>
+        </tbody>
+    </table>
+    <p>La cancellazione non rimuove automaticamente telemetria già raccolta da Firebase, log
+        infrastrutturali o backup. I tempi o criteri di conservazione ancora da definire sono
+        indicati nella <a href="#privacy-retention">sezione Conservazione della Privacy</a>.</p>
+    <p>Se usi Sign in with Apple, puoi verificare e rimuovere l'autorizzazione nelle impostazioni
+        del tuo account Apple, separatamente dalla cancellazione StockRush.</p>
+    <h2>Se non puoi accedere all'app</h2>
+    <p>Se puoi, scrivi dall'email associata all'account a
+        <a href="mailto:stockrushinfo@gmail.com">stockrushinfo@gmail.com</a>. Se usi l'email
+        privata di Apple e non puoi inviare da quell'indirizzo, scrivici comunque: valuteremo con
+        te un modo proporzionato per verificare la richiesta. Rispondiamo senza ingiustificato
+        ritardo e comunque entro un mese; eventuali estensioni sono spiegate nella
+        <a href="#privacy">Privacy §8</a>. Non inviare password, token o documenti finanziari.</p>
+</div>
 
+<div id="deletion-en" class="section" lang="en">
     <h1>Delete your account</h1>
     <p class="subtitle">
         How to delete your <strong>StockRush</strong> account and understand what happens to your data.
@@ -352,6 +456,14 @@
         This action is irreversible through the app. Successful deletion removes your account
         and synced portfolio from the active database. Technical and provider-held records are
         subject to the retention conditions below.
+    </div>
+
+    <div class="info">
+        <strong>Have a Pro subscription?</strong> Deleting your StockRush account or uninstalling
+        the app does not cancel automatic renewal in Apple App Store or Google Play.
+        Manage or cancel your subscription in the store that bills you, even if you delete your
+        account. You can still request account deletion while subscribed.
+        See the <a href="#subscriptions-en">Subscription Terms</a>.
     </div>
 
     <h2>Steps to delete your account</h2>
@@ -393,7 +505,8 @@
                     <div class="step-desc">
                         Tap <strong>Delete account</strong> to confirm.
                         Successful deletion removes your account and synced portfolio from the active
-                        database and revokes your sessions. Technical records expire separately.
+                        database and revokes your sessions. Some technical and purchase records remain
+                        as described in Privacy Section 6; some currently have no automatic expiry.
                     </div>
                 </div>
             </div>
@@ -437,51 +550,15 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>User account (Google&nbsp;ID / Apple&nbsp;ID, email, display name)</td>
-                <td>Server</td>
-                <td><span class="badge badge-delete">Deleted immediately</span></td>
-            </tr>
-            <tr>
-                <td>Portfolio &amp; benchmark synced for cross-device restore and notifications (tickers, quantities, invested amounts, purchase dates, dividends)</td>
-                <td>Server</td>
-                <td><span class="badge badge-delete">Deleted immediately</span></td>
-            </tr>
-            <tr>
-                <td>Notification preferences &amp; push notification tokens (FCM)</td>
-                <td>Server</td>
-                <td><span class="badge badge-delete">Deleted immediately</span></td>
-            </tr>
-            <tr>
-                <td>Biometric login public key</td>
-                <td>Server</td>
-                <td><span class="badge badge-delete">Deleted immediately</span></td>
-            </tr>
-            <tr>
-                <td>Biometric login private key</td>
-                <td>Device (operating-system secure storage)</td>
-                <td><span class="badge badge-delete">Deleted immediately</span></td>
-            </tr>
-            <tr>
-                <td>Local portfolio copy &amp; settings (currency, benchmark, country, preferences)</td>
-                <td>Device</td>
-                <td><span class="badge badge-delete">Deleted immediately</span></td>
-            </tr>
-            <tr>
-                <td>Authentication tokens</td>
-                <td>Device</td>
-                <td><span class="badge badge-delete">Deleted immediately</span></td>
-            </tr>
-            <tr>
-                <td>Widget cached data</td>
-                <td>Device</td>
-                <td><span class="badge badge-delete">Deleted immediately</span></td>
-            </tr>
-            <tr>
-                <td>Uploaded broker files</td>
-                <td>Server</td>
-                <td><span class="badge badge-local">Processed for import; see Section 1.4</span></td>
-            </tr>
+            <tr><td>Account, Google/Apple identifiers, email, name, biometric public key</td><td>Server</td><td>Removed from the active database</td></tr>
+            <tr><td>Synced portfolio and benchmark, notification preferences and push token</td><td>Server</td><td>Removed from the active database</td></tr>
+            <tr><td>App and widget sessions</td><td>Server</td><td>Revoked; records and token hashes remain until expiry and automatic cleanup</td></tr>
+            <tr><td>Pseudonymous purchase and verification records</td><td>Server</td><td>Some remain. A protected code derived from the Google/Apple identity used to sign in to StockRush may allow verified restoration to a newly created account using that same identity; it does not restore the portfolio. Period to be defined before sales.</td></tr>
+            <tr><td>Sign in with Apple authorisation token</td><td>Server</td><td>Removed with the account. We attempt revocation with Apple; an error or missing configuration does not prevent account deletion and may leave the Apple authorisation active.</td></tr>
+            <tr><td>Local portfolio, settings, tokens and widget cache</td><td>Device used for deletion</td><td>Cleared by the app; other devices and backups are not remotely erased</td></tr>
+            <tr><td>Biometric private key</td><td>Device secure storage</td><td>Removed from the device used for deletion</td></tr>
+            <tr><td>Uploaded broker files</td><td>Server processing</td><td>Used for import; see Privacy Section 2</td></tr>
+            <tr><td>Responses retained for repeated import, purchase verification or restoration attempts</td><td>Server</td><td>Removed from the active database; otherwise expire after 24 hours, with asynchronous cleanup. Separate purchase records follow the criteria above.</td></tr>
         </tbody>
     </table>
 
@@ -490,17 +567,24 @@
         <p>
             Successful deletion removes the account and synced portfolio from the active database.
             App and widget sessions are revoked. Session records and token hashes remain until
-            expiry and automatic cleanup. Deletion does not itself erase provider-held telemetry,
-            infrastructure logs or backups. See Section 8 for retention.
+            expiry and automatic cleanup. Some pseudonymous purchase records also remain;
+            their retention period is not yet defined. Deletion does not itself erase provider-held
+            telemetry, infrastructure logs or backups. See
+            <a href="#privacy-retention-en">Privacy Section 6</a> for retention.
         </p>
     </div>
 
+    <p>If you use Sign in with Apple, you can check and remove authorisation in your Apple
+        account settings, separately from StockRush account deletion.</p>
     <h2>Alternative: request deletion via email</h2>
     <p>
         If you can no longer access the app, you can request account deletion by sending an email to
         <a href="mailto:stockrushinfo@gmail.com">stockrushinfo@gmail.com</a>
-        from the email address associated with your account (Google or Apple).
-        We will process your request within 30 days.
+        from the email address associated with your account (Google or Apple), if possible.
+        If you use Apple Hide My Email and cannot send from the relay address, contact us anyway:
+        we will work with you on a proportionate way to verify the request. We respond without
+        undue delay and within one month; any extensions are explained in
+        <a href="#privacy-en">Privacy Section 8</a>. Do not send passwords, tokens or financial documents.
     </p>
 
 </div>
@@ -508,380 +592,925 @@
 <!-- ════════════════════════════════════════════════════════════════════════ -->
 <!-- SECTION 2 — PRIVACY POLICY                                            -->
 <!-- ════════════════════════════════════════════════════════════════════════ -->
-<div id="privacy" class="section active">
+<div id="privacy" class="section" lang="it">
+    <h1>Informativa sulla privacy</h1>
+    <p class="subtitle">Bozza aggiornata il 4 ottobre 2026</p>
+    <div class="warning"><strong>Bozza non pronta per la pubblicazione.</strong> Sono ancora da
+        completare l'identità e il recapito del titolare, alcune durate di conservazione e le
+        verifiche sui fornitori e sui trasferimenti. Analytics è attivo senza una scelta dedicata:
+        descriverlo qui non sostituisce un eventuale consenso necessario. Questi punti devono
+        essere risolti prima di usare il testo come informativa definitiva.</div>
+    <div class="info"><strong>In breve:</strong> account e portafoglio sono trattati per far
+        funzionare StockRush. Notifiche, biometria e importazione AI sono facoltative. Non
+        mostriamo pubblicità e non vendiamo i dati. Pagamenti, cancellazione dell'account e
+        disdetta dell'abbonamento sono operazioni distinte.</div>
 
+    <h2>1. Titolare e contatti</h2>
+    <p>Il titolare del trattamento è <strong>[nome o ragione sociale da confermare]</strong>,
+        <strong>[indirizzo professionale da confermare]</strong>. Contatto:
+        <a href="mailto:stockrushinfo@gmail.com">stockrushinfo@gmail.com</a>.
+        StockRush è il nome dell'app, non sostituisce l'identità del titolare.</p>
+
+    <h2>2. Dati che trattiamo e perché</h2>
+    <ul>
+        <li><strong>Account e sicurezza:</strong> Google Sign-In su Android e Apple Sign-In su
+            iOS forniscono l'identificativo dell'account, il nome e l'email eventualmente condivisi.
+            Trattiamo anche identificativi di installazione, hash dei refresh token, emissione,
+            scadenza e stato delle sessioni app e widget. Servono per accesso, ripristino e
+            prevenzione degli abusi. Per Sign in with Apple conserviamo inoltre sul server,
+            quando disponibile, il token di autorizzazione rilasciato da Apple per poterlo
+            revocare alla cancellazione. Non riceviamo la password Google o Apple.</li>
+        <li><strong>Portafoglio e benchmark:</strong> strumenti, quantità, importi investiti,
+            date di acquisto, dividendi, composizione del benchmark, valuta e paese scelti sono
+            trattati per valutazioni, grafici, sincronizzazione e widget. Una copia è salvata
+            sul server e una sul dispositivo. Il paese scelto non è una misura della tua posizione
+            geografica. Il refresh di una valutazione non sovrascrive da solo il portafoglio salvato.</li>
+        <li><strong>Importazione:</strong> elaboriamo i file Excel, CSV o PDF che scegli di inviare.
+            Per broker supportati usiamo parser dedicati. Nel percorso AI inviamo ad Anthropic
+            il testo estratto: può includere dati personali o finanziari presenti nel documento,
+            anche nome e numero di conto. Usalo solo se vuoi questa elaborazione e rimuovi, quando
+            possibile, dati non necessari. I file non costituiscono un archivio documentale;
+            possono esserci copie temporanee durante l'elaborazione. Il risultato elaborato può
+            essere conservato per restituire la stessa risposta a un tentativo ripetuto:
+            scade dopo 24 ore, con rimozione asincrona, ed è rimosso dal nostro database attivo
+            con la cancellazione dell'account.</li>
+        <li><strong>Notifiche:</strong> sono spente per default. Attivandole richiedi notifiche
+            giornaliere con percentuali di rendimento e confronto, senza elenco dei titoli o
+            importi. Conserviamo preferenza e token push FCM. La visibilità nella schermata
+            bloccata dipende dalle impostazioni del telefono. Disattivazione, logout e
+            cancellazione avviano la rimozione del token associato; un problema di rete può
+            ritardarla. La consegna non è garantita ogni giorno.</li>
+        <li><strong>Accesso biometrico:</strong> se lo abiliti, il dispositivo usa la biometria
+            per autorizzare una firma. La chiave privata resta nell'archivio sicuro del dispositivo;
+            al server arriva la chiave pubblica e la prova firmata. Impronta e volto non vengono
+            inviati a StockRush.</li>
+        <li><strong>Abbonamenti e limiti del piano:</strong> quando attivi, Apple e Google gestiscono
+            il pagamento. Verifichiamo riferimenti e prove d'acquisto, prodotto, piano, date,
+            rinnovi, rimborsi e revoche; non riceviamo il numero completo della carta o la password
+            dello store. Le prove usate dal backend sono cifrate. Trattiamo anche strumenti
+            ammessi, stato di monitoraggio, ultime valutazioni autorizzate e contatore mensile
+            dei tentativi AI. Un codice protetto derivato dall'identità Google/Apple usata per
+            accedere a StockRush, non dal solo account dello store, può consentire un ripristino
+            verificato anche su un nuovo account con la stessa identità. Non ricrea il portafoglio
+            cancellato: è pseudonimo, non anonimo.</li>
+        <li><strong>Assistenza:</strong> «Segnala un problema» apre una bozza nell'app di posta;
+            decidi tu se inviarla e cosa aggiungere. La bozza contiene piattaforma, versione e
+            build dell'app, versione del sistema e lingua, non il portafoglio, credenziali o log.
+            Se invii l'email riceviamo indirizzo del mittente, messaggio ed eventuali allegati
+            scelti da te. Non inviare password, token o estratti conto.</li>
+    </ul>
+    <p>I dati necessari all'accesso e alle funzioni richieste sono indispensabili per erogarle:
+        senza account non puoi usare il servizio autenticato; senza i dati delle posizioni non
+        possiamo calcolare il portafoglio. Puoi non usare AI, notifiche o biometria senza perdere
+        le altre funzioni disponibili nel tuo piano.</p>
+    <p>Non usiamo il portafoglio per pubblicità o profilazione commerciale. Le verifiche automatiche
+        di acquisti, quote e strumenti ammessi applicano le regole del piano, non sono raccomandazioni
+        d'investimento. Se ritieni errato un blocco, contattaci per una verifica.</p>
+
+    <h2>3. Basi giuridiche e funzioni facoltative</h2>
+    <p>L'art. 6(1)(b) GDPR riguarda i trattamenti necessari al servizio che richiedi: account,
+        autenticazione, valutazioni, sincronizzazione, importazione richiesta e accesso al piano.
+        Scegliere una funzione facoltativa non equivale ad acconsentire a finalità ulteriori.
+        Puoi disabilitare notifiche e biometria nelle impostazioni.</p>
+    <p>Per sicurezza, prevenzione degli abusi e gestione dei reclami può rilevare l'interesse
+        legittimo, art. 6(1)(f), da documentare con necessità, proporzionalità e bilanciamento.
+        L'art. 6(1)(c) riguarda soltanto obblighi di legge effettivamente applicabili, non una
+        conservazione indiscriminata di ogni record. <strong>Prima della pubblicazione devono
+        essere confermate le basi per diagnostica, assistenza e conservazione degli acquisti
+        dopo la cancellazione.</strong> Il consenso, dove necessario, deve essere preventivo,
+        specifico e revocabile senza pregiudicare i trattamenti precedenti leciti.</p>
+
+    <h2>4. Fornitori, telemetria e loghi</h2>
+    <p>Il backend usa Heroku (Salesforce) per l'hosting e MongoDB Atlas per il database.
+        Google e Apple gestiscono accesso e servizi dei rispettivi store; Firebase gestisce
+        messaggi push, diagnostica e Analytics. Anthropic elabora il testo nel percorso AI.
+        I fornitori di dati di mercato ricevono le richieste necessarie, come simboli e intervalli;
+        non aggiungiamo a tali richieste l'intero portafoglio, account o token StockRush.
+        Per l'assistenza usiamo una casella Gmail, oltre al servizio di posta scelto da te.</p>
+    <p>Firebase può generare un identificativo d'installazione e un token push già all'avvio,
+        anche con notifiche spente. L'app associa il token al nostro server per le notifiche
+        solo quando le attivi. Crashlytics raccoglie dati tecnici di errore, dispositivo,
+        sistema e stack trace; i report applicativi sono filtrati per evitare credenziali
+        e dati finanziari. Questo non significa che tutta la telemetria sia anonima.</p>
+    <h3>Analytics</h3>
+    <p>Firebase Analytics è configurato per la raccolta automatica: può registrare primo avvio,
+        sessioni, uso dell'app, schermate native, aggiornamenti ed errori, secondo SDK e piattaforma.
+        Raccoglie identificativi dell'istanza app e informazioni su dispositivo, sistema, versione
+        e lingua; può ricavare un'area geografica approssimativa dall'IP, senza GPS. Le integrazioni
+        attive possono inoltre rilevare notifiche e acquisti, anche prodotto, prezzo e valuta.
+        Questi dati automatici sono distinti dai parametri aggiunti dall'app e non coincidono
+        con tutte le schermate React Native.</p>
+    <p>L'app invia anche eventi
+        di navigazione e parametri da un elenco chiuso, come tipo di asset, broker, metodo di
+        accesso, valuta, periodo, schermata, modalità d'inserimento per quantità o importo,
+        preferenze on/off e conteggi interi. Non aggiungiamo ticker, nomi del benchmark, ricerche,
+        paese scelto o importi del portafoglio come parametri applicativi.
+        L'Advertising ID e i consensi pubblicitari sono disabilitati nella configurazione.</p>
+    <p><strong>Oggi non esiste una scelta dedicata per Analytics.</strong> I report aggregati
+        non rendono anonimi gli eventi raccolti. Prima del rilascio va verificata la disciplina
+        degli identificativi e dell'accesso al dispositivo; quando serve consenso la raccolta
+        deve restare spenta prima della scelta e dopo la revoca. Il solo testo di questa
+        informativa non risolve questa condizione.</p>
+    <h3>Loghi degli strumenti</h3>
+    <p>Se abilitati e se esiste un mapping supportato, i loghi nella ricerca Mercati e nella
+        scheda Andamento di azioni e crypto sono richiesti direttamente a Brandfetch. Il fornitore
+        riceve almeno IP, User-Agent, identificativo del logo e identificativo client StockRush.
+        Nella sezione Analisi dell'app lo strumento consultato può essere una tua posizione:
+        la richiesta comunica il titolo consultato, non le quantità possedute. Non aggiungiamo
+        quantità, importi, identità dell'account, token o portafoglio. La cache è quella del
+        componente nativo, non un archivio aggiuntivo gestito da StockRush; durata e condizioni
+        non sono garantite da questa pagina. Se il logo manca, resta l'icona alternativa.</p>
+    <p><strong>I loghi sono spenti per default.</strong> Prima di abilitarli devono essere
+        verificati base giuridica, trasferimenti, dichiarazioni degli store e autorizzazione
+        del fornitore per uso nativo e cache. Non è previsto l'invio a un secondo fornitore
+        se la richiesta fallisce.</p>
+    <h3>Questa pagina</h3>
+    <p>La versione pubblica è ospitata su GitHub Pages: l'apertura trasmette a GitHub i dati
+        tecnici della richiesta, come IP e informazioni del browser. La pagina non integra
+        Analytics, banner pubblicitari o font remoti. I link esterni contattano il sito
+        indicato quando li apri.</p>
+    <p>Informative e condizioni dei fornitori:
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google</a>,
+        <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">Apple</a>,
+        <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Firebase</a>,
+        <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">Anthropic</a>,
+        <a href="https://www.salesforce.com/company/privacy/" target="_blank" rel="noopener">Salesforce</a>,
+        <a href="https://www.mongodb.com/legal/privacy-policy" target="_blank" rel="noopener">MongoDB</a>,
+        <a href="https://brandfetch.com/privacy" target="_blank" rel="noopener">Brandfetch</a>,
+        <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub</a>.</p>
+
+    <h2>5. Destinatari e trasferimenti internazionali</h2>
+    <p>I dati possono essere trattati dai fornitori necessari alle funzioni sopra descritte,
+        da personale autorizzato e, quando richiesto dalla legge, da autorità competenti.
+        Un fornitore può agire come responsabile su nostre istruzioni o come titolare per
+        proprie finalità: i ruoli dipendono dal servizio e dai contratti effettivi.</p>
+    <p>Alcuni fornitori o loro subfornitori possono trattare dati fuori dallo Spazio economico
+        europeo, anche negli Stati Uniti. <strong>Prima della pubblicazione occorre completare
+        l'elenco dei servizi attivi, le regioni effettive, i ruoli e le garanzie applicabili.</strong>
+        Le garanzie possono comprendere una decisione di adeguatezza valida per lo specifico
+        destinatario o clausole contrattuali standard con le verifiche e misure necessarie.
+        La sola scelta di una regione europea non dimostra l'assenza di trasferimenti.
+        Puoi chiedere informazioni e copia delle garanzie applicabili al nostro contatto.</p>
+
+    <h2 id="privacy-retention">6. Conservazione e cancellazione</h2>
+    <table class="data-table">
+        <thead><tr><th>Dati</th><th>Durata o criterio</th></tr></thead>
+        <tbody>
+            <tr><td>Account, portafoglio, benchmark e preferenze sincronizzati</td><td>Durante il servizio; rimossi dal database attivo con la cancellazione riuscita dell'account.</td></tr>
+            <tr><td>Risposte per tentativi ripetuti di importazione, verifica o ripristino acquisti</td><td>Scadenza dopo 24 ore per evitare duplicazioni; rimosse prima con la cancellazione dell'account. La pulizia automatica dopo scadenza è asincrona. Non è la scadenza dei record d'acquisto separati.</td></tr>
+            <tr><td>Token di autorizzazione Sign in with Apple</td><td>Nel documento account durante il servizio, quando disponibile; rimosso dal database attivo con l'account. La revoca presso Apple è tentata ma non garantita.</td></tr>
+            <tr><td>Sessioni, hash dei token e sfide biometriche</td><td>Fino alle rispettive scadenze e successiva pulizia automatica. La durata configurata di default dei refresh token è sette giorni; un token ruotato ha la propria scadenza. Le sessioni sono revocate con la cancellazione.</td></tr>
+            <tr><td>Record pseudonimi d'acquisto, associazioni protette e operazioni di verifica</td><td>Possono sopravvivere alla cancellazione. Durate, basi e procedura di eliminazione sono ancora da definire prima delle vendite; non sono anonimi e non hanno oggi una scadenza automatica generale.</td></tr>
+            <tr><td>Testo inviato ad Anthropic tramite API</td><td>Il fornitore dichiara una conservazione standard di input e output fino a 30 giorni, salvo accordi diversi, obblighi di legge o controlli sugli abusi. Per contenuti segnalati le eccezioni possono durare più a lungo. Non dichiariamo una modalità a conservazione zero.</td></tr>
+            <tr><td>Report Crashlytics</td><td>Firebase dichiara 90 giorni, dopo i quali avvia la rimozione. La cancellazione dell'account StockRush non elimina da sola i report già inviati.</td></tr>
+            <tr><td>Eventi Analytics, email di assistenza, log infrastrutturali e backup</td><td>Impostazioni e durate effettive da confermare e documentare prima della pubblicazione. Non sono automaticamente cancellati dal flusso di eliminazione dell'account.</td></tr>
+        </tbody>
+    </table>
+    <p>La cancellazione pulisce la copia locale, i token e la chiave biometrica sul dispositivo
+        da cui la richiedi, non gli altri dispositivi o i loro backup. Un identificativo di
+        installazione può restare. Gli archivi dei fornitori seguono le rispettive condizioni:
+        chiudere l'account non equivale a cancellare automaticamente la loro installazione o
+        ogni copia di backup. Vedi <a href="#deletion">la procedura di cancellazione</a>.</p>
+
+    <h2>7. Sicurezza</h2>
+    <p>Usiamo HTTPS/TLS, controlli d'accesso e sessioni separate per app e widget. Sul dispositivo
+        i token di sessione e le chiavi private biometriche usano gli archivi sicuri del sistema.
+        Questa indicazione non significa che tutti i dati sul server siano cifrati a livello
+        di singolo campo. Non dichiariamo che tutta la copia locale del portafoglio
+        sia cifrata: alcune impostazioni e dati applicativi sono memorizzati localmente.
+        Il widget può leggere la propria copia e inviare al backend lotti, benchmark, paese,
+        valuta e periodo per i calcoli, con le sue credenziali. Proteggi il dispositivo e
+        valuta ciò che rendi visibile nei widget. Nessuna misura garantisce sicurezza assoluta.</p>
+
+    <h2>8. I tuoi diritti</h2>
+    <p>Nei casi previsti puoi chiedere accesso, rettifica, cancellazione, limitazione e portabilità,
+        opporti ai trattamenti fondati sull'interesse legittimo e revocare il consenso ove usato.
+        La revoca non rende illeciti i trattamenti precedenti. Scrivi a
+        <a href="mailto:stockrushinfo@gmail.com">stockrushinfo@gmail.com</a>:
+        rispondiamo senza ingiustificato ritardo e comunque entro <strong>un mese</strong>.
+        In caso di complessità o numero di richieste il termine può essere esteso di altri
+        due mesi; ti informiamo dell'estensione e del motivo entro il primo mese.</p>
+    <p>Le richieste sono di norma gratuite. Chiediamo solo le informazioni proporzionate
+        necessarie a verificare l'identità; non inviare preventivamente documenti d'identità,
+        password o dati finanziari. Se non possiamo accogliere la richiesta, ne spieghiamo
+        il motivo e i rimedi. Puoi presentare reclamo al
+        <a href="https://www.garanteprivacy.it/home/diritti" target="_blank" rel="noopener">Garante per la protezione dei dati personali</a>
+        o all'autorità competente e ricorrere al giudice.</p>
+
+    <h2>9. Minori e aggiornamenti</h2>
+    <p>StockRush non è destinato a minori di 14 anni in Italia. Se ritieni che siano stati
+        raccolti dati di un minore in modo non consentito, contattaci. L'età richiesta per
+        concludere un acquisto e le eventuali autorizzazioni del rappresentante legale sono
+        distinte dalla soglia prevista per il consenso privacy.</p>
+    <p>Le modifiche saranno pubblicate con una nuova data e comunicate quando necessario.
+        Un nuovo trattamento che richieda consenso non è autorizzato dal semplice uso continuato
+        dell'app. Per informazioni scrivi a
+        <a href="mailto:stockrushinfo@gmail.com">stockrushinfo@gmail.com</a>.</p>
+</div>
+
+<div id="privacy-en" class="section active" lang="en">
     <h1>Privacy Policy</h1>
-    <p class="subtitle">
-        Last updated: <span id="policy-date"></span>
-    </p>
+    <p class="subtitle">Draft updated <span id="policy-date">October 4, 2026</span></p>
+    <div class="warning"><strong>Draft, not ready for publication.</strong> The controller's
+        identity and address, some retention periods, and processor and transfer checks still
+        need completion. Analytics is enabled without a dedicated choice: describing it here
+        does not replace any required consent. Resolve these items before treating this text
+        as a final privacy notice.</div>
+    <div class="info"><strong>In brief:</strong> account and portfolio data make StockRush work.
+        Notifications, biometrics and AI imports are optional. We do not show ads or sell data.
+        Payments, account deletion and subscription cancellation are separate actions.</div>
 
-    <p>
-        <strong id="dev-name-policy">StockRush</strong> ("we", "us", or "our") operates the
-        <strong>StockRush</strong> mobile application (the "App").
-        This page informs you of our policies regarding the collection, use, storage, and disclosure
-        of personal data when you use the App, and of your rights under applicable data protection
-        law, including the EU General Data Protection Regulation (GDPR).
-    </p>
+    <h2>1. Controller and contact</h2>
+    <p>The controller is <strong id="dev-name-policy">[controller identity pending]</strong>,
+        <strong>[professional address pending]</strong>. Contact:
+        <a href="mailto:stockrushinfo@gmail.com">stockrushinfo@gmail.com</a>.
+        StockRush is the app name, not a substitute for the controller's identity.</p>
 
-    <div class="info">
-        <strong>In short:</strong> we collect the minimum needed to run your account, and we store
-        your portfolio on our servers to sync it, calculate performance and deliver optional
-        notifications. We never sell your data or show ads. Account deletion and its retention
-        limits are explained below.
+    <h2>2. Data we process and why</h2>
+    <ul>
+        <li><strong>Account and security:</strong> Google Sign-In on Android and Apple Sign-In on
+            iOS provide an account identifier and any name and email shared. We also process
+            installation identifiers, refresh token hashes, issuance, expiry and app/widget
+            session status for authentication, restoration and abuse prevention. We do not
+            receive your Google or Apple password. For Sign in with Apple, we also keep Apple's
+            authorisation token on the server when available to attempt revocation on deletion.</li>
+        <li><strong>Portfolio and benchmark:</strong> instruments, quantities, invested amounts,
+            purchase dates, dividends, benchmark composition, chosen currency and country support
+            valuations, charts, synchronisation and widgets. Copies are stored on our server
+            and your device. Your chosen country is not a measurement of your geographical
+            location. Refreshing a valuation does not by itself overwrite your saved portfolio.</li>
+        <li><strong>Imports:</strong> we process the Excel, CSV or PDF files you choose to send.
+            Supported brokers use dedicated parsers. The AI path sends extracted text to
+            Anthropic, which may include personal or financial information from the document,
+            including names and account numbers. Use it only if you want that processing and
+            remove unnecessary data where possible. Files are not a document archive; temporary
+            copies may exist during processing. The processed result may be retained to answer
+            a repeated attempt consistently: it expires after 24 hours, with asynchronous cleanup,
+            and is removed from our active database on account deletion.</li>
+        <li><strong>Notifications:</strong> off by default. Enabling them requests daily return
+            and comparison percentages, without holding lists or amounts. We retain your
+            preference and FCM push token. Lock-screen visibility depends on your phone settings.
+            Disabling, signing out and account deletion initiate removal of the associated token;
+            network problems may delay this. Delivery every day is not guaranteed.</li>
+        <li><strong>Biometric sign-in:</strong> if enabled, the device uses biometrics to authorise
+            a signature. The private key stays in device secure storage; the server receives the
+            public key and signed proof. Fingerprint and face data are not sent to StockRush.</li>
+        <li><strong>Subscriptions and plan limits:</strong> when enabled, Apple and Google handle
+            payment. We verify purchase references and proofs, product, plan, dates, renewals,
+            refunds and revocations, not your full card number or store password. Purchase proofs
+            used by the backend are encrypted. We also process eligible instruments, monitoring
+            status, last authorised valuations and the monthly AI-attempt counter. A protected
+            code derived from the Google/Apple identity used to sign in to StockRush, not just
+            the store account, may allow verified restoration to a new account using that same
+            identity. It does not restore a deleted portfolio and is pseudonymous, not anonymous.</li>
+        <li><strong>Support:</strong> “Report a problem” opens a draft in your email app. You decide
+            whether to send it and what to add. It includes platform, app version and build,
+            system version and language, not your portfolio, credentials or logs. If sent, we
+            receive the sender address, message and any attachments you choose. Do not send
+            passwords, tokens or account statements.</li>
+    </ul>
+    <p>Data needed for sign-in and requested functions is necessary to provide them: without an
+        account you cannot use authenticated services; without holdings data we cannot calculate
+        your portfolio. You can decline AI imports, notifications and biometrics without losing
+        other functions available on your plan.</p>
+    <p>We do not use portfolios for advertising or commercial profiling. Automated purchase,
+        quota and instrument-eligibility checks apply plan rules, not investment recommendations.
+        Contact us for a review if you believe a restriction is incorrect.</p>
+
+    <h2>3. Legal bases and optional functions</h2>
+    <p>GDPR Article 6(1)(b) applies to processing needed for services you request: accounts,
+        authentication, valuations, synchronisation, requested imports and plan access.
+        Choosing an optional function does not consent to unrelated purposes. You can disable
+        notifications and biometrics in settings.</p>
+    <p>Security, abuse prevention and complaint handling may involve legitimate interests,
+        Article 6(1)(f), subject to documented necessity, proportionality and balancing.
+        Article 6(1)(c) applies only to actual legal duties, not indiscriminate retention of
+        all records. <strong>Before publication, confirm the bases for diagnostics, support
+        and post-deletion purchase retention.</strong> Where needed, consent must be prior,
+        specific and withdrawable, without affecting previously lawful processing.</p>
+
+    <h2>4. Providers, telemetry and logos</h2>
+    <p>The backend uses Heroku (Salesforce) hosting and MongoDB Atlas database services.
+        Google and Apple handle sign-in and their store services; Firebase provides push,
+        diagnostics and Analytics. Anthropic processes text for AI imports. Market-data
+        providers receive necessary requests, such as symbols and ranges; we do not add
+        entire portfolios, accounts or StockRush tokens to those requests. Support uses a
+        Gmail mailbox alongside your chosen email service.</p>
+    <p>Firebase can generate an installation identifier and push token at startup even with
+        notifications off. The app associates the token with our server for notifications
+        only when enabled. Crashlytics receives technical error, device, system and stack
+        information; application reports are filtered to avoid credentials and financial
+        data. This does not mean all telemetry is anonymous.</p>
+    <h3>Analytics</h3>
+    <p>Firebase Analytics is configured for automatic collection: it may record first launch,
+        sessions, app use, native screens, updates and errors, depending on SDK and platform.
+        It collects app-instance identifiers and device, system, version and language information;
+        it may infer an approximate area from the IP address, without GPS. Active integrations
+        may also record notifications and purchases, including product, price and currency.
+        This automatic data is separate from application parameters and does not identify
+        every React Native screen.</p>
+    <p>The app also sends navigation
+        events and allowlisted parameters such as asset type, broker, sign-in method, currency,
+        period, screen, entry mode by units or amount, on/off preferences and integer counts.
+        Application parameters do not include tickers, benchmark names, searches, chosen country
+        or portfolio amounts. Advertising ID and
+        advertising consents are disabled in configuration.</p>
+    <p><strong>There is currently no dedicated Analytics choice.</strong> Aggregated reports do
+        not anonymise collected events. Device identifiers and access must be assessed before
+        release; where consent is needed, collection must be off before the choice and after
+        withdrawal. This privacy notice alone does not meet that condition.</p>
+    <h3>Instrument logos</h3>
+    <p>When enabled and a supported mapping exists, logos in Markets search and the stock/crypto
+        Trend view are requested directly from Brandfetch. It receives at least your IP,
+        User-Agent, logo identifier and StockRush client identifier. In the app's Analytics section,
+        the instrument may be a holding: the request identifies the instrument viewed, not its
+        holding quantity. We do not add quantities, amounts, account identity,
+        tokens or portfolio data. Images use the native component's cache, not a separate
+        StockRush archive; this page does not guarantee cache duration or permissions.
+        If a logo fails, the fallback icon remains.</p>
+    <p><strong>Logos are off by default.</strong> Before enabling, verify the legal basis,
+        transfers, store declarations and provider permission for native use and caching.
+        Failed requests are not sent to a second logo provider.</p>
+    <h3>This page</h3>
+    <p>The public version is hosted on GitHub Pages. Opening it sends technical request data,
+        such as IP and browser information, to GitHub. This page does not embed Analytics,
+        advertising banners or remote fonts. External links contact the named site when opened.</p>
+    <p>Provider privacy notices and terms:
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google</a>,
+        <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">Apple</a>,
+        <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Firebase</a>,
+        <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">Anthropic</a>,
+        <a href="https://www.salesforce.com/company/privacy/" target="_blank" rel="noopener">Salesforce</a>,
+        <a href="https://www.mongodb.com/legal/privacy-policy" target="_blank" rel="noopener">MongoDB</a>,
+        <a href="https://brandfetch.com/privacy" target="_blank" rel="noopener">Brandfetch</a>,
+        <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub</a>.</p>
+
+    <h2>5. Recipients and international transfers</h2>
+    <p>Data may be processed by providers needed for the functions described above, authorised
+        personnel and competent authorities when legally required. A provider may act as a
+        processor on our instructions or as a controller for its own purposes; the role
+        depends on the service and actual contracts.</p>
+    <p>Some providers or subprocessors may process data outside the European Economic Area,
+        including in the United States. <strong>Before publication, complete the active-service
+        inventory, actual regions, roles and applicable safeguards.</strong> Safeguards may
+        include a valid adequacy decision covering the recipient or standard contractual
+        clauses with necessary assessments and measures. Selecting an EU region alone does
+        not establish absence of transfers. Contact us for information and copies of
+        applicable safeguards.</p>
+
+    <h2 id="privacy-retention-en">6. Retention and deletion</h2>
+    <table class="data-table">
+        <thead><tr><th>Data</th><th>Period or criterion</th></tr></thead>
+        <tbody>
+            <tr><td>Account, portfolio, benchmark and synced preferences</td><td>During service; removed from the active database following successful account deletion.</td></tr>
+            <tr><td>Responses for repeated import, purchase verification or restoration attempts</td><td>Expire after 24 hours to avoid duplicate processing; removed sooner on account deletion. Automatic cleanup after expiry is asynchronous. Separate purchase records do not follow this expiry.</td></tr>
+            <tr><td>Sign in with Apple authorisation token</td><td>In the account document during service, when available; removed from the active database with the account. Revocation with Apple is attempted, not guaranteed.</td></tr>
+            <tr><td>Sessions, token hashes and biometric challenges</td><td>Until their respective expiry and automatic cleanup. The default configured refresh-token lifetime is seven days; a rotated token has its own expiry. Deletion revokes sessions.</td></tr>
+            <tr><td>Pseudonymous purchases, protected bindings and verification operations</td><td>May survive deletion. Periods, bases and deletion procedures still need definition before sales; these records are not anonymous and currently have no general automatic expiry.</td></tr>
+            <tr><td>Text sent to Anthropic via API</td><td>The provider states standard input/output retention up to 30 days, except for different agreements, legal duties or abuse monitoring. Flagged-content exceptions may last longer. We do not claim zero data retention.</td></tr>
+            <tr><td>Crashlytics reports</td><td>Firebase states 90 days, after which removal starts. StockRush account deletion does not itself remove reports already sent.</td></tr>
+            <tr><td>Analytics events, support email, infrastructure logs and backups</td><td>Actual settings and periods must be confirmed and documented before publication. Account deletion does not automatically erase them.</td></tr>
+        </tbody>
+    </table>
+    <p>Deletion clears local data, tokens and biometric keys on the requesting device, not
+        other devices or backups. An installation identifier may remain. Providers' records
+        follow their own conditions: closing the account does not automatically delete their
+        installation or every backup copy. See <a href="#deletion-en">account deletion</a>.</p>
+
+    <h2>7. Security</h2>
+    <p>We use HTTPS/TLS, access controls and separate app/widget sessions. On the device,
+        session tokens and biometric private keys use the operating system's secure storage.
+        This does not mean every server field is individually encrypted.
+        We do not claim the entire local portfolio copy is encrypted: some settings
+        and application data are stored locally. Widgets can read their copy and send lots,
+        benchmark, country, currency and period to the backend, with their own credentials.
+        Protect your device and consider what widgets display. No measure guarantees absolute security.</p>
+
+    <h2>8. Your rights</h2>
+    <p>Where applicable, request access, rectification, erasure, restriction and portability,
+        object to legitimate-interest processing and withdraw consent when used. Withdrawal
+        does not affect previously lawful processing. Email
+        <a href="mailto:stockrushinfo@gmail.com">stockrushinfo@gmail.com</a>.
+        We respond without undue delay and within <strong>one month</strong>. Complexity or
+        the number of requests may justify two additional months; we notify you of the
+        extension and reasons within the first month.</p>
+    <p>Requests are normally free. We seek only proportionate information needed to verify
+        identity; do not send identity documents, passwords or financial data in advance.
+        If a request cannot be met, we explain why and available remedies. You may complain
+        to the <a href="https://www.garanteprivacy.it/home/diritti" target="_blank" rel="noopener">Italian data protection authority</a>
+        or the competent supervisory authority and seek a judicial remedy.</p>
+
+    <h2>9. Children and updates</h2>
+    <p>StockRush is not intended for children under 14 in Italy. Contact us if you believe a
+        child's data was collected without a lawful basis. Capacity to purchase and any
+        required legal-representative authorisation are separate from the privacy-consent threshold.</p>
+    <p>Updates will be published with a new date and notified when needed. Continuing to use
+        the app does not authorise new processing that requires consent. For information,
+        email <a href="mailto:stockrushinfo@gmail.com">stockrushinfo@gmail.com</a>.</p>
+</div>
+
+<!-- SECTION 3 — SERVICE AND SUBSCRIPTION TERMS. Not effective until release checks are complete. -->
+<div id="subscriptions" class="section" lang="it">
+    <h1>Termini del servizio e degli abbonamenti</h1>
+    <p class="subtitle">StockRush Free e Pro · Bozza v0.4 del 4 ottobre 2026 · Non in vigore</p>
+    <div class="warning" role="note">
+        <strong>Bozza per revisione, non ancora in vigore.</strong> Prima della pubblicazione
+        e dell'apertura delle vendite devono essere completati i dati del fornitore e verificati
+        testo, informativa italiana e condizioni effettive negli store. Questa pagina non apre le vendite.
     </div>
 
-    <h2>1. Data we collect</h2>
+        <div class="info">
+            <strong>Le cose essenziali:</strong> Pro è un abbonamento con rinnovo automatico.
+            Puoi disdire il rinnovo dallo store. La scadenza di Pro non cancella i titoli salvati.
+            Eliminare l'account StockRush rimuove l'account attivo e il portafoglio, con le eccezioni
+            di conservazione indicate nella Privacy, ma non interrompe
+            gli addebiti dello store.
+        </div>
 
-    <h3>1.1 Authentication data</h3>
-    <p>
-        We use <strong>Google Sign-In</strong> (Android only) and <strong>Apple Sign-In</strong> (iOS only)
-        to authenticate users.
-        When you sign in, we receive your email address and a unique identifier from the
-        chosen provider. This data is used solely to create and manage your account within StockRush.
-    </p>
+        <h2>1. Il servizio e chi lo fornisce</h2>
+        <p>StockRush è un'app per seguire il portafoglio, visualizzare dati e confrontare rendimenti.
+            Questi Termini descrivono il servizio Free e l'abbonamento facoltativo StockRush Pro.
+            Le clausole di pagamento e rinnovo riguardano soltanto Pro. L'offerta iniziale
+            è destinata agli store italiani. Per pagamento e gestione dell'acquisto si applicano
+            anche le condizioni dello store utilizzato; i diritti inderogabili del consumatore
+            restano sempre validi.</p>
+        <div class="card">
+            <h3>Dati del fornitore — da completare prima della pubblicazione</h3>
+            <p>Nome o ragione sociale, indirizzo professionale e recapiti obbligatori:
+                <strong>in attesa di conferma</strong>. Non è stato inserito un indirizzo privato.</p>
+            <p>Assistenza: <a href="mailto:stockrushinfo@gmail.com">stockrushinfo@gmail.com</a>.</p>
+        </div>
 
-    <h3>1.2 Data stored on our servers</h3>
-    <p>
-        We store the following data, associated with your account, on our servers:
-    </p>
-    <ul>
-        <li>Authentication provider identifier (Google ID or Apple ID)</li>
-        <li>Email address (to identify your account for support and deletion requests)</li>
-        <li>Display name (from your Google or Apple profile)</li>
-        <li>App and widget session records: refresh-token hashes, account and session identifiers,
-            installation identifier, creation and expiry dates, and revocation status. These
-            support authentication, token renewal and protection against token reuse.</li>
-        <li><strong>Your portfolio and benchmark</strong> — see Section 1.3</li>
-        <li>Notification preference and push notification tokens — see Section 1.5</li>
-        <li>Biometric login public key, if you enable biometric login — see Section 1.6</li>
-        <li>A monthly counter of AI-parsing uses (to enforce usage limits — no file content)</li>
-    </ul>
+        <h2>2. Cosa include Pro</h2>
+        <ul>
+            <li>Il limite di <strong>strumenti contemporaneamente monitorabili</strong> è mostrato
+                nell'app prima dell'acquisto ed è applicato secondo la configurazione corrente.
+                Più lotti dello stesso strumento non consumano altrettanti posti.</li>
+            <li>Il numero di <strong>tentativi di importazione AI per mese di calendario UTC</strong>
+                è mostrato nell'app prima dell'acquisto ed è applicato secondo la configurazione
+                corrente. L'app mostra consumi e residuo; i tentativi
+                inutilizzati non si accumulano; il rinnovo dell'abbonamento non azzera il contatore.</li>
+            <li>Mensile e annuale includono le stesse funzioni. Non sono previsti prova gratuita
+                o condivisione familiare dell'abbonamento.</li>
+        </ul>
+        <p><strong>Da definire prima delle vendite:</strong> come proteggere i limiti già acquistati
+            durante il periodo pagato e come comunicare e applicare eventuali riduzioni future.</p>
+        <p>Pro non rende disponibile uno strumento o una borsa che l'app indica come non supportati.
+            L'elenco delle borse coperte nell'app distingue quelle Free e quelle eventualmente
+            riservate a Pro; una borsa non supportata non appare come acquistabile.
+            Importazioni AI e dati di mercato possono contenere errori:
+            controlla i dati importati prima di confermarli.</p>
+        <p>Gli acquisti richiedono la capacità di concludere il contratto o l'intervento del
+            rappresentante legale quando necessario. Eventuali controlli dello store non
+            sostituiscono le condizioni previste dalla legge.</p>
 
-    <h3>1.3 Portfolio data &amp; cross-device sync</h3>
-    <p>
-        Your portfolio is the core of the app, so we sync it to enable a seamless experience.
-        When the app refreshes your live data, your holdings — <strong>ticker symbols, quantities,
-        invested amounts, purchase dates, and accumulated dividends</strong> — together with your
-        <strong>benchmark composition</strong> and your selected currency and country, are stored on
-        our servers and linked to your account.
-    </p>
-    <p>This enables portfolio performance calculations, charts and benchmark comparisons for
-        the app and widget, as well as the following features:</p>
-    <ul>
-        <li><strong>Cross-device sync</strong> — when you sign in on a new device, your portfolio is
-            automatically restored, so you don't have to re-enter it.</li>
-        <li><strong>Daily performance notifications</strong> — if enabled, our server recalculates
-            your portfolio's daily performance to send you the notification (see Section 1.5).</li>
-    </ul>
-    <p>
-        We keep an up-to-date portfolio snapshot per account. Read-only requests, including widget
-        refreshes, do not overwrite it. We do not use your portfolio for advertising. Some interactions
-        with positions and brokers are counted as analytics events — without ticker symbols or portfolio
-        values — as described in Section 4.
-        You can erase the active server portfolio copy by
-        deleting your account (see Section 9).
-    </p>
+        <h2>3. Prezzi e acquisto</h2>
+        <div class="terms-summary">
+            <div class="card"><h3>Mensile</h3><p>Rinnovo mensile automatico.</p></div>
+            <div class="card"><h3>Annuale</h3><p>Un unico addebito annuale, con rinnovo automatico.</p></div>
+        </div>
+        <p>Il prezzo corrente di ciascun piano è mostrato nell'app nella valuta dello store,
+            prima di avviare l'acquisto. Prima della conferma, lo store mostra l'importo totale,
+            le imposte applicabili, la durata e le condizioni effettive del piano. Verifica questi
+            dati prima di confermare: sono quelli dell'offerta che stai acquistando.</p>
+        <p>L'acquisto e l'addebito avvengono tramite App Store o Google Play. StockRush non riceve
+            il numero completo della carta. Le funzioni Pro si attivano quando la verifica dell'acquisto
+            è completata; se l'operazione è in attesa, controlla lo stato o usa il ripristino
+            prima di tentare un altro acquisto.</p>
 
-    <h3>1.4 Broker file upload &amp; AI parsing</h3>
-    <p>
-        You may import your portfolio by uploading a broker statement file (Excel/CSV/PDF).
-        The file is sent to our server solely to enable the import functionality of the app.
-        We extract portfolio-related information such as ticker symbols, quantities, and transaction
-        amounts, and return the structured data to your device.
-    </p>
-    <p>
-        For directly supported brokers (e.g., eToro, Trading 212), parsing is performed on our
-        servers using predefined templates.
-    </p>
-    <p>
-        For unsupported brokers, the text extracted from your file may be sent to a
-        third-party AI service (Anthropic Claude) to interpret the file structure and extract
-        transaction data. This text may include personal information contained in your
-        broker statement (e.g., name, account number). We do not control what data your broker
-        includes in exported files. Anthropic processes the text under the terms and retention
-        conditions applicable to its API service. We do not promise immediate deletion by Anthropic.
-        For general information, see
-        <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">their Privacy Policy</a>.
-    </p>
-    <p>
-        Uploaded files are used for processing, not kept as a broker-document archive. Processing
-        may involve temporary upload storage. The application does not intentionally log file
-        contents. For unsupported brokers, extracted text is securely sent to Anthropic for parsing,
-        subject to the applicable API retention conditions. Avoid uploading unnecessary personal
-        information. The resulting portfolio is handled as described in Section 1.3.
-    </p>
+        <h2>4. Rinnovo e disdetta</h2>
+        <p>L'abbonamento si rinnova automaticamente per la stessa durata fino alla disdetta.
+            Puoi gestirlo direttamente nello store che ti addebita il costo; l'app può offrire un
+            collegamento alla relativa schermata. Disdici prima della scadenza indicata nello store; per Apple considera che
+            l'addebito del rinnovo può avvenire nelle 24 ore precedenti.</p>
+        <ul>
+            <li><a href="https://support.apple.com/it-it/118428" target="_blank" rel="noopener">Apple: gestire e annullare l'abbonamento</a>.</li>
+            <li><a href="https://support.google.com/googleplay/answer/7018481?hl=it" target="_blank" rel="noopener">Google Play: gestire e annullare l'abbonamento</a>.</li>
+        </ul>
+        <p>La disdetta interrompe i rinnovi futuri; in assenza di rimborsi, revoche o problemi di
+            pagamento, Pro resta accessibile fino al termine del periodo già pagato. Tali eventi possono modificare
+            quel termine, secondo lo stato comunicato dallo store. Un eventuale periodo di grazia
+            dipende dalle condizioni dello store e non è una prova gratuita aggiuntiva. Durante
+            la sospensione per mancato pagamento (account hold), Pro non è attivo.</p>
 
-    <h3>1.5 Push notifications</h3>
-    <p>
-        Daily performance notifications are <strong>optional</strong> and turned off by default.
-        You can enable or disable them at any time in <strong>Settings &rarr; Notifications</strong>.
-    </p>
-    <p>
-        If you enable them, we store a push notification token (provided by
-        <strong>Firebase Cloud Messaging</strong>) and your notification preference on our servers.
-        Once a day, after market close, our server uses the portfolio stored under Section 1.3 to
-        compute your portfolio's daily percentage change and how it compares to your benchmark, and
-        sends you a notification. The notification contains only percentage values — it does not
-        include your holdings, amounts, or other identifying details.
-    </p>
-    <p>
-        When you disable notifications, sign out, or delete your account, the associated token and
-        preference are removed from our servers.
-    </p>
+        <h2>5. Cosa succede quando Pro termina</h2>
+        <p>Il tuo account torna a Free. I titoli salvati non vengono cancellati per la sola scadenza:
+            restano aggiornabili i primi strumenti, fino al limite Free indicato nell'app, per ordine
+            di ingresso nel portafoglio, purché appartenenti
+            a mercati disponibili per Free. Gli altri restano visibili con gli ultimi valori disponibili
+            e la relativa data, ma il monitoraggio si interrompe. Rimuovendo strumenti, altri possono
+            tornare attivi nell'ordine indicato dall'app.</p>
+        <p>Un totale può includere valori non aggiornati, contrassegnati come tali: non rappresenta
+            necessariamente un valore corrente completo. Restano possibili lettura e modifica dei dati;
+            nuove aggiunte e importazioni devono rispettare i limiti e i mercati del piano.
+            La quota AI torna a quella Free; i tentativi già consumati nel mese restano conteggiati.</p>
 
-    <h3>1.6 Biometric login</h3>
-    <p>
-        You can optionally enable biometric login (fingerprint or Face ID). When you do, a
-        cryptographic key pair is generated <strong>on your device</strong>. The
-        <strong>private key never leaves your device</strong> and is kept in the device's secure
-        storage provided by the operating system (Keychain on iOS, Keystore on Android).
-        Hardware-backed protection depends on the device and implementation. Only the corresponding
-        <strong>public key</strong> is sent to our servers, where it is used to verify a
-        challenge-response at sign-in. Biometric data itself (your fingerprint or face) is never
-        accessed by, or transmitted to, StockRush — it stays within your device's operating system.
-    </p>
+        <h2>6. Account e ripristino</h2>
+        <p>L'acquisto è associato all'account StockRush usato per attivarlo e allo store di acquisto.
+            Per ripristinarlo usa lo stesso account StockRush e lo stesso account dello store.
+            Un accesso Apple su iOS e uno Google su Android sono account StockRush separati:
+            la stessa email non li unifica e non trasferisce automaticamente l'abbonamento.
+            Più abbonamenti non sommano i limiti del piano.</p>
+        <p>Se cambi dispositivo o reinstalli, usa «Ripristina acquisti». Se il ripristino non riesce,
+            contattaci senza inviare password, token, documenti bancari o dati del portafoglio.</p>
 
-    <h3>1.7 Data stored on your device</h3>
-    <p>
-        A copy of your portfolio (tickers, quantities, amounts, dates, dividends), your settings,
-        benchmarks, authentication tokens, and the biometric private key are stored locally on your
-        device. An installation identifier may remain locally after account deletion. Data is
-        transmitted for the purposes described throughout this policy, including authentication,
-        analytics and widget refreshes.
-    </p>
+        <p>Se hai eliminato l'account, quello originale non esiste più. Crearne uno nuovo con
+            la stessa identità Google o Apple usata per l'accesso può consentire un ripristino
+            verificato dell'abbonamento, con lo stesso account dello store. Questo non recupera
+            il portafoglio cancellato e non trasferisce Pro a un'altra identità di accesso.</p>
 
-    <h2>2. Data we do NOT collect</h2>
-    <ul>
-        <li>We do not track your location</li>
-        <li>We do not use advertising SDKs or ad tracking</li>
-        <li>We do not sell personal data</li>
-        <li>We do not share personal data with third parties for marketing purposes</li>
-        <li>We do not use your portfolio data for profiling or automated decision-making</li>
-    </ul>
+        <h2>7. Eliminazione dell'account</h2>
+        <p>Puoi eliminare l'account anche con Pro attivo. <strong>L'eliminazione dell'account
+            o dell'app non disdice l'abbonamento nello store.</strong> Gestisci separatamente
+            il rinnovo nello store per evitare altri addebiti. Cancellazione dell'account,
+            disdetta del rinnovo e richiesta di rimborso sono operazioni diverse.</p>
+        <p>Per i dati eliminati e quelli soggetti a conservazione consulta
+            <a href="#deletion">Cancellazione account</a> e l'<a href="#privacy">Informativa privacy</a>.</p>
 
-    <h2>3. Legal basis for processing (GDPR)</h2>
-    <p>If you are in the European Economic Area, we process your personal data on the following legal bases:</p>
-    <ul>
-        <li><strong>Performance of a contract</strong> (Art. 6(1)(b)) — to provide the App's core
-            functionality: account management, authentication, and syncing/restoring your portfolio.</li>
-        <li><strong>Consent</strong> (Art. 6(1)(a)) — for optional features you explicitly enable,
-            such as push notifications and biometric login, and for analytics where consent is required.
-            You may withdraw consent at any time.</li>
-        <li><strong>Legitimate interests</strong> (Art. 6(1)(f)) — to keep the App secure, stable,
-            and free of bugs (e.g., crash reporting), balanced against your rights.</li>
-    </ul>
+        <h2>8. Recesso, rimborsi e diritti del consumatore</h2>
+        <p>La disdetta del rinnovo ferma i rinnovi futuri, ma non equivale a una richiesta di
+            recesso o rimborso del periodo già pagato. Per i contratti a distanza con consumatori
+            nell'UE, la regola generale prevede 14 giorni per il recesso senza motivo. Le eccezioni
+            previste dalla legge per servizi e contenuti digitali richiedono condizioni specifiche:
+            <strong>questa bozza non presume che tu abbia rinunciato al diritto</strong>.</p>
+        <p>Per comunicare in modo inequivocabile la volontà di recedere puoi scrivere a
+            <a href="mailto:stockrushinfo@gmail.com">stockrushinfo@gmail.com</a>, indicando
+            l'abbonamento, la data dell'acquisto e un recapito per la risposta, senza inviare
+            password, token o dati del portafoglio. Puoi usare la dichiarazione libera o il
+            <a href="https://eur-lex.europa.eu/legal-content/IT/TXT/PDF/?uri=CELEX:32011L0083"
+               target="_blank" rel="noopener">modulo tipo di recesso dell'allegato I(B)</a>.
+            Per gli acquisti gestiti dagli store puoi anche usare le rispettive procedure di rimborso:</p>
+        <p>
+            <a href="https://support.apple.com/it-it/118223" target="_blank" rel="noopener">Apple</a>
+            o <a href="https://support.google.com/googleplay/answer/2479637?hl=it" target="_blank" rel="noopener">Google Play</a>.
+            Apple valuta i rimborsi degli acquisti effettuati tramite App Store; Google Play offre
+            una procedura per i propri acquisti. Puoi contattarci per assistenza anche se usi lo store.
+            <strong>Prima delle vendite un professionista deve verificare la qualificazione del servizio,
+            i consensi effettivamente raccolti, il destinatario formale del recesso e gli effetti
+            economici dell'attivazione immediata.</strong> Restano salvi i diritti alla conformità del servizio,
+            ai rimedi previsti dalla legge e al giudice competente secondo le norme di tutela
+            del consumatore.</p>
+        <p><strong>Funzione di recesso online — da verificare prima delle vendite:</strong> dal
+            19 giugno 2026 la disciplina italiana richiede, per i contratti conclusi tramite
+            un'interfaccia online, una funzione di recesso facilmente accessibile durante il
+            relativo periodo, con conferma e ricevuta su supporto durevole. Va identificata
+            la funzione effettiva nella procedura d'acquisto e nelle interfacce coinvolte,
+            coordinandola con lo store. Una semplice email o il pulsante per disdire il rinnovo
+            non dimostrano da soli il rispetto di questo obbligo. Questa bozza non implementa
+            tale funzione né la presenta come già disponibile.</p>
 
-    <h2>4. Third-party services</h2>
+        <h2>9. Dati, disponibilità e uso dell'app</h2>
+        <p>StockRush è uno strumento informativo: non esegue operazioni finanziarie e non fornisce
+            consulenza personalizzata d'investimento o fiscale. Quotazioni, grafici e rendimenti
+            possono essere ritardati, incompleti o stimati; controlla sempre metodo e data indicati.
+            Pro aumenta i limiti del servizio e non garantisce rendimenti, quotazioni in tempo reale
+            o disponibilità ininterrotta di ogni fonte. Questa descrizione non limita i diritti
+            inderogabili relativi al servizio acquistato.</p>
+        <ul>
+            <li><strong>Card e widget:</strong> il rendimento si riferisce al costo o alla base
+                del periodo indicato, con i dividendi lordi noti secondo il metodo esposto.</li>
+            <li><strong>Grafico del portafoglio:</strong> mostra una performance TWR ricostruita
+                dalle posizioni disponibili, con dividendi lordi dove noti. Neutralizza i flussi
+                modellati dal calcolo; non è il profitto in euro né un estratto conto completo.
+                Flussi ignoti e dati mancanti possono richiedere stime. Per questo il valore può
+                differire da card e widget senza che misuri la stessa cosa.</li>
+            <li><strong>Grafico di un singolo strumento:</strong> mostra l'andamento del prezzo
+                nel periodo, non il rendimento dei tuoi specifici acquisti.</li>
+            <li><strong>Limiti comuni:</strong> non sono ricostruiti integralmente liquidità,
+                vendite e posizioni chiuse, utili realizzati, imposte o commissioni. I dividendi
+                sono lordi, non netti e non si presumono reinvestiti. Le conversioni usano i
+                ultimi cambi disponibili, che possono essere datati o di età non verificabile,
+                come indicato nell'app: non ricostruiscono il guadagno o la perdita dovuti
+                ai cambi storici. Valori parziali, datati o stimati vanno letti con le indicazioni
+                dell'app, non come importi liquidabili o dichiarazioni fiscali.</li>
+        </ul>
+        <p>Per i confronti verifica periodo, metodo, copertura e date: una percentuale del
+            portafoglio e una del benchmark non dimostrano da sole una performance omogenea
+            se queste condizioni differiscono. Dividendi esclusi per mancanza di copertura sono
+            dichiarati esclusi: il rendimento è allora di solo prezzo. Dividendi ignoti non
+            si presumono pari a zero e possono impedire di mostrare il rendimento; vale
+            l'indicazione nell'app. Un benchmark ad accumulazione reinveste i proventi nel fondo,
+            mentre i dividendi del portafoglio non si presumono reinvestiti: questa differenza
+            influenza il confronto.</p>
 
-    <p>The App communicates with our backend to:</p>
-    <ul>
-        <li>Authenticate users</li>
-        <li>Fetch market data (e.g. stock prices, exchange rates)</li>
-        <li>Sync and restore your portfolio</li>
-        <li>Process broker file uploads</li>
-        <li>Send daily performance notifications (if enabled)</li>
-    </ul>
+        <h2>10. Modifiche e assistenza</h2>
+        <p>Eventuali modifiche ai prezzi, ai limiti, alle funzioni o a questi Termini saranno
+            comunicate in anticipo nel rispetto della normativa e delle regole dello store,
+            richiedendo il consenso dove previsto. Gli aumenti di prezzo non si applicano al
+            periodo già pagato; potrai disdire i rinnovi futuri senza costi di disdetta se non
+            accetti una modifica. Le modifiche non eliminano retroattivamente i diritti già
+            maturati. <strong>Prima delle vendite devono essere definiti il preavviso concreto e
+            la gestione delle modifiche sostanziali del servizio.</strong></p>
+        <p>Per le modifiche del servizio digitale che incidono negativamente sull'accesso o
+            sull'uso in modo non trascurabile si applicano anche i rimedi previsti dalla legge,
+            non soltanto la possibilità di fermare il prossimo rinnovo. Nei casi previsti
+            puoi recedere senza costi entro 30 giorni dalla comunicazione o dalla modifica,
+            se successiva. Una modifica richiede i presupposti di legge e le informazioni
+            su supporto durevole; il solo aggiornamento di questa pagina non basta.</p>
+        <p>Per problemi di accesso, acquisti o reclami:
+            <a href="mailto:stockrushinfo@gmail.com">stockrushinfo@gmail.com</a>.
+            Indica piattaforma, versione dell'app e problema riscontrato, evitando dati finanziari
+            o credenziali. I termini dello store sono consultabili su
+            <a href="https://www.apple.com/legal/internet-services/itunes/it/terms.html" target="_blank" rel="noopener">Apple Media Services</a>
+            e <a href="https://play.google.com/intl/it_it/about/play-terms/" target="_blank" rel="noopener">Google Play</a>.</p>
 
-    <p>We rely on third-party services including:</p>
-    <ul>
-        <li>Google (authentication, Firebase Crashlytics, Firebase Analytics, Firebase Cloud Messaging)</li>
-        <li>Apple (authentication via Sign in with Apple, and Apple Push Notification service on iOS)</li>
-        <li>Market data providers (for financial data)</li>
-        <li>Anthropic (AI-based parsing of unsupported broker files, as described in Section 1.4)</li>
-    </ul>
+        <h2>11. Conformità e rimedi</h2>
+        <p>I diritti inderogabili del consumatore restano validi anche quando i dati provengono
+            da terzi. Nei casi previsti dalla legge, un servizio non conforme dà diritto al
+            ripristino gratuito della conformità entro un termine ragionevole e senza notevoli
+            inconvenienti. Quando ricorrono le condizioni di legge puoi ottenere una riduzione
+            del prezzo o la risoluzione e i rimborsi dovuti. La procedura di rimborso dello
+            store non esclude questi diritti: puoi contattarci anche per un reclamo.
+            Non sono escluse responsabilità che la legge non consente di limitare.</p>
 
-    <p>
-        These services may receive limited technical data necessary to operate,
-        such as device information, request metadata, push tokens, or ticker symbols.
-    </p>
+        <h2>12. Uso corretto e sospensioni</h2>
+        <p>Usa l'app e i dati ottenuti per le funzioni offerte, rispettando i diritti di terzi.
+            Non tentare di eludere autenticazione, limiti o verifiche d'acquisto, né di compromettere
+            il servizio. Non acquisisci il diritto di rivendere o redistribuire i dati dei
+            fornitori. Queste condizioni non vietano usi o diritti che la legge tutela.</p>
+        <p>Interventi per sicurezza o abusi devono essere proporzionati. Quando possibile ti
+            comunichiamo il motivo e come chiedere una verifica; in caso di urgenza possono
+            precedere l'avviso. Una sospensione non comporta automaticamente cancellazione del
+            portafoglio o perdita dei rimedi relativi al periodo pagato.</p>
 
-    <h3>Google Sign-In</h3>
-    <p>
-        Authentication is handled by Google Sign-In. We receive a user identifier and email address
-        to enable account creation and authentication within the App. Please refer to
-        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>.
-    </p>
+        <h2>13. Legge applicabile e controversie</h2>
+        <p>Si applica la legge italiana, senza privarti delle protezioni inderogabili del paese
+            di residenza abituale riconosciute dalla legge. La competenza del giudice segue
+            le norme di tutela del consumatore: non imponiamo un foro diverso da quello
+            spettante per legge né un arbitrato obbligatorio. Puoi scriverci per cercare una
+            soluzione; questo non è un presupposto che limita il ricorso ai rimedi di legge.</p>
+</div>
 
-    <h3>Apple Sign-In (iOS)</h3>
-    <p>
-        On iOS devices, authentication can also be handled by Sign in with Apple.
-        We receive a user identifier and, if you choose to share it, your email address
-        (which may be an Apple private relay address). Please refer to
-        <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">Apple's Privacy Policy</a>.
-    </p>
+<div id="subscriptions-en" class="section" lang="en">
+        <h1>Service and Subscription Terms</h1>
+        <p class="subtitle">StockRush Free and Pro · Draft v0.4 dated October 4, 2026 · Not in effect</p>
+        <div class="warning" role="note"><strong>Draft for review, not yet in effect.</strong> Supplier details, the Italian privacy
+            notice, wording and actual store conditions must be completed and checked before publication
+            and sales. This page does not open sales.</div>
+        <div class="info"><strong>The essentials:</strong> Pro renews automatically until you cancel
+            through the store. Expiry does not delete saved holdings. Deleting your StockRush
+            account removes the active account and portfolio, subject to the retention exceptions
+            in the Privacy Policy, but does not stop store charges.</div>
 
-    <h3>Firebase Cloud Messaging</h3>
-    <p>
-        The App includes Google Firebase Cloud Messaging (and, on iOS, the Apple Push Notification
-        service) to deliver notifications. When the App starts, the Firebase SDK can generate a Firebase
-        installation identifier and a device push token and exchange them with Firebase, together with
-        app and device configuration data, even if you have not enabled notifications. Only if you
-        enable notifications is the push token sent to and stored on our servers, so we can send you
-        the daily performance notification. See
-        <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Firebase Privacy</a>.
-    </p>
+        <h2>1. The service and its provider</h2>
+        <p>StockRush helps you track a portfolio, view data and compare returns. These Terms cover
+            Free and the optional StockRush Pro subscription. Payment and renewal clauses apply
+            only to Pro, initially offered through Italian storefronts.
+            The purchasing store's terms also govern payment and purchase management. Mandatory
+            consumer rights remain unaffected.</p>
+        <p><strong>Supplier details to complete before publication:</strong> legal name, professional
+            address and required contact details are awaiting confirmation. No private address has
+            been entered. Support: <a href="mailto:stockrushinfo@gmail.com">stockrushinfo@gmail.com</a>.</p>
 
-    <h3>Firebase Crashlytics</h3>
-    <p>
-        We use Google Firebase Crashlytics to collect crash reports in order to improve app stability
-        and fix bugs. This data may include device model, operating system version, app state,
-        and stack traces. Crash reports are not designed to include directly identifying personal data,
-        portfolio information, or financial data. For more information, see
-        <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Firebase Privacy</a>.
-    </p>
+        <h2>2. What Pro includes</h2>
+        <ul>
+            <li>The limit of <strong>concurrently monitored instruments</strong> is shown in the app
+                before purchase and applied according to the current configuration. Multiple lots
+                of the same instrument do not use separate instrument slots.</li>
+            <li>The number of <strong>AI import attempts per UTC calendar month</strong> is the Pro
+                limit shown in the app before purchase and applied according to the current
+                configuration. The app shows usage and remaining attempts. Unused attempts do not
+                roll over; subscription renewal does not reset the counter.</li>
+            <li>Monthly and yearly plans provide the same features, without a free trial or family sharing.</li>
+        </ul>
+        <p><strong>To define before sales:</strong> how to protect limits already purchased during
+            a paid period, and how future reductions would be communicated and applied.</p>
+        <p>Pro does not unlock unsupported instruments or exchanges. The in-app list of covered
+            exchanges distinguishes Free markets and any Pro-only markets; an unsupported exchange
+            is not presented as purchasable.
+            AI imports and market data can contain errors; review imported data before confirming.</p>
+        <p>Purchases require capacity to enter the contract or the involvement of a legal
+            representative when needed. Store checks do not replace statutory requirements.</p>
 
-    <h3>Analytics</h3>
-    <p>
-        We use analytics services such as Google Firebase Analytics to understand how users interact
-        with the App and to improve it. This may include app usage events such as app opens and
-        sessions, session duration and device information, which the Firebase SDK collects
-        automatically. Screen changes inside the App are not detected automatically by the SDK: the
-        App sends its own navigation events, which say which tab is opened. The parameters that the
-        App itself attaches to its events come from a closed list: the asset type (stock, ETF
-        or crypto), the broker code selected in the App (eToro, Trading 212, Fineco, DEGIRO, other,
-        none, manual entry, or all brokers when filtering), the login method (Google, Apple or
-        biometric), the selected currency (US dollar, euro or pound sterling) and time period (day,
-        week, month, year, year to date or all time), the screen or tab (portfolio, analytics or
-        markets), on/off switches (notifications, biometric login), whether a position was entered by
-        units or by amount, and counts (whole numbers, for example how many positions an import
-        contains or how many remain after a removal). They never include ticker symbols, benchmark
-        names, country, search text, amounts or other portfolio values. Analytics collection is enabled
-        automatically in the current app configuration, with no separate in-app analytics consent
-        switch. Aggregated reporting does not make the underlying event collection anonymous.
-    </p>
+        <h2>3. Prices and purchase</h2>
+        <p>The current price of each plan is shown in the app in the store's currency before purchase.
+            Monthly plans renew monthly; yearly plans are charged once per year and renew yearly.
+            Before confirmation, the store shows the total amount, applicable taxes, duration and
+            plan conditions. Check these details before confirming: they define the offer you buy.</p>
+        <p>App Store or Google Play handles the purchase and payment; StockRush does not receive
+            your full card number. Pro activates after purchase verification. For a pending purchase,
+            check its status or restore it before attempting another purchase.</p>
 
-    <h2>5. Your rights</h2>
-    <p>
-        Depending on your jurisdiction (and in particular under the GDPR), you have the right to:
-    </p>
-    <ul>
-        <li><strong>Access</strong> the personal data we hold about you</li>
-        <li><strong>Rectify</strong> inaccurate or incomplete data</li>
-        <li><strong>Erase</strong> your data ("right to be forgotten") — available directly in-app via account deletion</li>
-        <li><strong>Restrict</strong> or <strong>object</strong> to certain processing</li>
-        <li><strong>Data portability</strong> — receive your data in a structured, machine-readable format</li>
-        <li><strong>Withdraw consent</strong> at any time for features based on consent (e.g. notifications)</li>
-        <li><strong>Lodge a complaint</strong> with your local data protection authority</li>
-    </ul>
-    <p>
-        To exercise any of these rights, contact us at
-        <a href="mailto:stockrushinfo@gmail.com">stockrushinfo@gmail.com</a>.
-        We respond to requests within 30 days.
-    </p>
+        <h2>4. Renewal and cancellation</h2>
+        <p>The subscription renews automatically for the same duration until cancelled. Manage it
+            directly in the store that bills you; the app may provide a link to that screen. Cancel before
+            the deadline shown by the store; Apple renewal charges may occur during the preceding
+            24 hours. See the instructions for
+            <a href="https://support.apple.com/en-us/118428" target="_blank" rel="noopener">Apple</a>
+            and <a href="https://support.google.com/googleplay/answer/7018481?hl=en" target="_blank" rel="noopener">Google Play</a>.</p>
+        <p>Cancellation stops future renewals; unless a refund, revocation or payment issue intervenes,
+            access continues until the paid period ends. Those events may change that date as reported by the store.
+            Any billing grace period depends on store conditions and is not an additional free trial.
+            Pro is not active during an account hold for failed payment.</p>
 
-    <h2>6. Widget</h2>
-    <p>
-        The StockRush widget displays your portfolio performance on your home screen.
-        The widget reads data stored locally on your device and periodically fetches
-        updated prices and performance calculations from our server. Requests include local
-        portfolio records and benchmark holdings, country, currency and chart-period parameters,
-        and authentication credentials for a separate widget session. They are not limited to
-        ticker symbols. Widget refreshes do not overwrite the saved server portfolio snapshot.
-    </p>
+        <h2>5. When Pro ends</h2>
+        <p>Your account returns to Free. Expiry alone does not delete saved holdings: the first
+            instruments by portfolio entry order remain eligible for updates, up to the Free limit
+            shown in the app and subject to Free market
+            availability. Others remain visible with their last available values and dates, without
+            ongoing monitoring. Removing instruments can reactivate others in the order shown in the app.</p>
+        <p>A total can include labelled outdated values and may not be a complete current valuation.
+            You can still read and edit your data; new additions and imports must respect plan limits
+            and market availability. AI allowance returns to Free, with this month's usage still counted.</p>
 
-    <h2>7. Data security</h2>
-    <p>
-        All communication between the App and our server is encrypted using HTTPS/TLS.
-        Authentication tokens and your biometric private key are stored securely on your device.
-        Access to data on our servers is restricted and authenticated. While no method of
-        transmission or storage is 100% secure, we take reasonable measures to protect your data.
-    </p>
+        <h2>6. Accounts and restoration</h2>
+        <p>The purchase is associated with the StockRush account used to activate it and the purchasing
+            store. Restore with the same StockRush and store accounts. Apple sign-in on iOS and Google
+            sign-in on Android create separate StockRush accounts: using the same email does not merge
+            them or automatically transfer a subscription. Multiple subscriptions do not combine limits.</p>
+        <p>Use “Restore purchases” after reinstalling or changing devices. If it fails, contact support
+            without sending passwords, tokens, bank documents or portfolio data.</p>
 
-    <h2>8. Data retention</h2>
-    <p>
-        Successful deletion removes the account record and synced portfolio from the active
-        database and revokes app and widget sessions. Session records, including token hashes,
-        account and installation identifiers, timestamps and revocation status, remain until
-        their recorded expiry dates and automatic database cleanup. The repository configuration
-        uses a seven-day refresh-token lifetime; later-issued tokens have their own expiry dates.
-        Cleanup is asynchronous. Short-lived biometric challenges also expire automatically.
-        Upload and AI processing are described in Section 1.4.
-    </p>
-    <p>
-        Account deletion does not automatically erase previously collected Firebase telemetry
-        or other provider-held data. Applicable provider retention conditions also apply.
-        We do not promise immediate erasure of infrastructure logs or backup copies.
-        Contact us for retention information or to exercise deletion rights.
-    </p>
+        <p>If you deleted your account, the original no longer exists. Creating a new account with
+            the same Google or Apple sign-in identity may allow verified subscription restoration
+            with the same store account. It does not recover the deleted portfolio or transfer
+            Pro to a different sign-in identity.</p>
 
-    <h2>9. Account deletion</h2>
-    <p>
-        You can delete your account at any time from within the App
-        (Settings &rarr; Delete account) or by contacting us at
-        <a href="mailto:stockrushinfo@gmail.com">stockrushinfo@gmail.com</a>.
-    </p>
-    <p>
-        Successful deletion removes the active account record, including provider identifiers,
-        email, display name, notification preferences, push tokens and biometric public key,
-        and the synced portfolio and benchmark. Sessions are revoked. Technical records and
-        provider-held data are subject to the retention conditions in Section 8.
-    </p>
-    <p>
-        The deletion flow clears account-related local data on the requesting device, not other
-        devices, exported files or backups. An installation identifier may remain locally.
-        Uninstalling the app alone does not delete your server account.
-    </p>
+        <h2>7. Account deletion</h2>
+        <p>You may delete your account with an active subscription. <strong>Deleting the account or
+            uninstalling the app does not cancel store renewal.</strong> Manage renewal separately in
+            the store to avoid further charges. Account deletion, cancellation and refund requests
+            are different actions. See <a href="#deletion-en">Account Deletion</a> and the
+            <a href="#privacy-en">Privacy Policy</a> for data removal and retention.</p>
 
-    <h2>10. Children's privacy</h2>
-    <p>
-        StockRush is not intended for use by children under 13 (or the equivalent minimum age in your jurisdiction).
-        We do not knowingly collect data from children.
-    </p>
+        <h2>8. Withdrawal, refunds and consumer rights</h2>
+        <p>Cancelling renewal stops future renewals but is not a withdrawal or refund request for
+            the period already paid for. As a general rule, consumers in the EU have 14 days to
+            withdraw from a distance contract without giving a reason. Statutory exceptions for
+            digital services or content require specific conditions: <strong>this draft does not
+            assume that you have waived the right</strong>.</p>
+        <p>To state clearly that you wish to withdraw, email
+            <a href="mailto:stockrushinfo@gmail.com">stockrushinfo@gmail.com</a> with the
+            subscription, purchase date and a contact address, without sending passwords, tokens
+            or portfolio data. You may use your own clear statement or the
+            <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32011L0083"
+               target="_blank" rel="noopener">model withdrawal form in Annex I(B)</a>.
+            For store purchases, you can also request a refund through
+            <a href="https://support.apple.com/en-us/118223" target="_blank" rel="noopener">Apple</a>
+            or <a href="https://support.google.com/googleplay/answer/2479637?hl=en" target="_blank" rel="noopener">Google Play</a>.
+            Apple assesses refunds for App Store purchases; Google Play provides a process for its
+            purchases. Contact us for assistance even if you use the store. <strong>Before sales,
+            a professional must verify the service classification, consents actually collected,
+            formal recipient of withdrawal and financial effects of immediate access.</strong>
+            Statutory conformity rights, remedies and jurisdiction
+            under consumer protection rules remain unaffected.</p>
+        <p><strong>Online withdrawal function — verify before sales:</strong> since June 19, 2026,
+            Italian rules require contracts concluded through an online interface to provide
+            an easily accessible withdrawal function throughout the applicable period, with
+            confirmation and a durable receipt. Identify the actual function in the purchase
+            process and interfaces involved, in coordination with the store. Email or a renewal
+            cancellation button alone does not establish compliance. This draft does not
+            implement that function or present it as already available.</p>
 
-    <h2>11. Changes to this policy</h2>
-    <p>
-        We may update this Privacy Policy from time to time.
-        Changes will be posted on this page with an updated date.
-        Where consent is required for a change, continued use alone is not a substitute for consent.
-    </p>
+        <h2>9. Data, availability and use</h2>
+        <p>StockRush is an information tool. It does not execute financial transactions or provide
+            personalised investment or tax advice. Prices, charts and returns may be delayed,
+            incomplete or estimated; check the displayed method and date. Pro increases service
+            limits without guaranteeing investment returns, real-time prices or uninterrupted
+            availability of every source. This does not restrict mandatory rights concerning the
+            purchased service.</p>
+        <ul>
+            <li><strong>Cards and widgets:</strong> returns refer to cost or the displayed
+                period base, with known gross dividends according to the stated method.</li>
+            <li><strong>Portfolio chart:</strong> shows TWR performance reconstructed from
+                available holdings, with known gross dividends. It neutralises cash flows
+                modelled by the calculation; it is not monetary profit or a complete account
+                statement. Unknown flows and missing data may require estimates. It may
+                therefore differ from cards and widgets because the measures are different.</li>
+            <li><strong>Single-instrument chart:</strong> shows price movement over the selected
+                period, not the return of your individual purchases.</li>
+            <li><strong>Common limits:</strong> cash, sales and closed positions, realised gains,
+                taxes and fees are not fully reconstructed. Dividends are gross, not net, and
+                are not presumed reinvested. Conversions use the latest available exchange rates,
+                which may be dated or of unverifiable age, as indicated in the app,
+                not historical currency gains or losses. Read partial, dated or estimated
+                values alongside the app's disclosures, not as liquidation proceeds or tax returns.</li>
+        </ul>
+        <p>For comparisons, check period, method, coverage and dates: portfolio and benchmark
+            percentages alone do not establish a like-for-like comparison when these differ.
+            Dividends excluded due to absent coverage are declared excluded: the return is then
+            price-only. Unknown dividends are not assumed to be zero and may prevent a return
+            from being shown; follow the app's disclosure. An accumulating benchmark reinvests
+            income within the fund, while portfolio dividends are not presumed reinvested:
+            this difference affects the comparison.</p>
 
-    <h2>12. Contact us</h2>
-    <p>
-        If you have questions about this Privacy Policy or wish to exercise your rights,
-        please contact us at:<br>
-        <a href="mailto:stockrushinfo@gmail.com">stockrushinfo@gmail.com</a>
-    </p>
+        <h2>10. Changes and support</h2>
+        <p>Changes to prices, limits, features or these Terms will be communicated in advance in
+            accordance with applicable law and store rules, with consent where required. Price
+            increases do not apply to a period already paid for; you can cancel future renewals
+            without a cancellation fee if you do not accept a change. Changes do not retroactively
+            remove accrued rights. <strong>The specific notice period and handling of substantial
+            service changes must be defined before sales begin.</strong></p>
+        <p>Digital-service changes that negatively affect access or use beyond a minor impact
+            are also subject to statutory remedies, not merely cancellation of the next renewal.
+            Where applicable, you may terminate without charge within 30 days of notice or
+            the change, whichever is later. Changes require statutory conditions and durable
+            information; updating this page alone is not sufficient.</p>
+        <p>For access problems, purchases or complaints, contact
+            <a href="mailto:stockrushinfo@gmail.com">stockrushinfo@gmail.com</a> with your platform,
+            app version and the issue, without financial data or credentials. Store terms:
+            <a href="https://www.apple.com/legal/internet-services/itunes/it/terms.html" target="_blank" rel="noopener">Apple Media Services (Italy)</a>
+            and <a href="https://play.google.com/intl/it_it/about/play-terms/" target="_blank" rel="noopener">Google Play (Italy)</a>.</p>
 
+        <h2>11. Conformity and remedies</h2>
+        <p>Mandatory consumer rights remain valid when data comes from third parties. Where
+            statutory conditions apply, a non-conforming service entitles you to free
+            restoration of conformity within a reasonable time and without significant
+            inconvenience. Where applicable you may obtain a price reduction or termination
+            and refunds due. Store refund procedures do not exclude these rights; contact
+            us also for complaints. Liability that cannot legally be limited is not excluded.</p>
+
+        <h2>12. Proper use and suspension</h2>
+        <p>Use the app and supplied data for the offered functions, respecting third-party
+            rights. Do not circumvent authentication, limits or purchase checks or compromise
+            the service. You acquire no right to resell or redistribute providers' data.
+            These conditions do not prohibit uses or rights protected by law.</p>
+        <p>Security or abuse interventions must be proportionate. Where possible we explain
+            the reason and how to request a review; urgent action may precede notice.
+            Suspension does not automatically delete holdings or remove remedies for a paid period.</p>
+
+        <h2>13. Applicable law and disputes</h2>
+        <p>Italian law applies without depriving you of mandatory protections of your habitual
+            residence recognised by law. Courts' jurisdiction follows consumer-protection
+            rules: no alternative mandatory venue or compulsory arbitration is imposed.
+            Contact us to seek a solution; doing so is not a prerequisite limiting statutory remedies.</p>
 </div>
 
 </main>
 
 <footer>
-    &copy; <span id="footer-year"></span> <span class="footer-dev-name">StockRush</span>
+    &copy; <span id="footer-year">2026</span> <span class="footer-dev-name">StockRush</span>
 </footer>
 
 <script>
-    // ── Configuration ──────────────────────────────────────────────────
-    // Change these values to match your store listing.
     const CONFIG = {
-        developerName: 'StockRush',
         contactEmail: 'stockrushinfo@gmail.com',
-        // Fixed "last updated" date for the policy (YYYY-MM-DD). Update when the policy changes.
-        lastUpdated: '2026-09-25',
+        lastUpdated: '2026-10-04',
     };
+    const DOCUMENT_IDS = ['privacy', 'deletion', 'subscriptions'];
 
-    // ── Apply config ───────────────────────────────────────────────────
-    document.getElementById('policy-date').textContent =
-        new Date(CONFIG.lastUpdated + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-    document.getElementById('footer-year').textContent = new Date().getFullYear();
-    document.getElementById('dev-name-policy').textContent = CONFIG.developerName;
-    document.querySelectorAll('.footer-dev-name').forEach(el => el.textContent = CONFIG.developerName);
-    document.querySelectorAll('a[href^="mailto:"]').forEach(el => {
-        el.href = 'mailto:' + CONFIG.contactEmail;
-        el.textContent = CONFIG.contactEmail;
-    });
-
-    // ── Tab navigation ─────────────────────────────────────────────────
-    function showSection(id) {
-        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        // Sync the active tab (works whether triggered by a tab button or an in-page link)
-        const tabs = document.querySelectorAll('.nav-tab');
-        if (id === 'privacy' && tabs[0]) tabs[0].classList.add('active');
-        else if (id === 'deletion' && tabs[1]) tabs[1].classList.add('active');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+    // The URL is the language source of truth. No cookie, browser-language lookup or storage.
+    // Existing -en fragments remain valid, but ?lang chooses the displayed translation.
+    function pageState(href) {
+        const url = new URL(href);
+        const requested = (url.searchParams.get('lang') || '').toLowerCase();
+        const lang = requested === 'it' ? 'it' : 'en';
+        const fragment = url.hash.slice(1).replace(/-en$/, '');
+        const documentId = DOCUMENT_IDS.includes(fragment) ? fragment : 'privacy';
+        const anchor = fragment === 'privacy-retention' ? fragment : documentId;
+        return { lang, documentId, anchor };
     }
+
+    function pageUrl(lang, anchor) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('lang', lang);
+        url.hash = anchor;
+        return url.pathname + url.search + url.hash;
+    }
+
+    function syncPage() {
+        const state = pageState(window.location.href);
+        const suffix = state.lang === 'en' ? '-en' : '';
+        const section = document.getElementById(state.documentId + suffix);
+        document.documentElement.lang = state.lang;
+        document.querySelectorAll('.section').forEach(s => s.classList.toggle('active', s === section));
+        document.querySelector('nav').setAttribute('aria-label',
+            state.lang === 'it' ? 'Documenti legali' : 'Legal documents');
+        document.querySelector('.language-switch').setAttribute('aria-label',
+            state.lang === 'it' ? 'Scegli lingua' : 'Choose language');
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            const active = tab.dataset.document === state.documentId;
+            tab.textContent = tab.dataset[state.lang];
+            tab.href = pageUrl(state.lang, tab.dataset.document);
+            tab.classList.toggle('active', active);
+            if (active) tab.setAttribute('aria-current', 'page');
+            else tab.removeAttribute('aria-current');
+        });
+        document.querySelectorAll('.language-option').forEach(link => {
+            link.href = pageUrl(link.dataset.language, state.anchor);
+            if (link.dataset.language === state.lang) link.setAttribute('aria-current', 'true');
+            else link.removeAttribute('aria-current');
+        });
+        // Internal cross-references follow the chosen language, including retention anchors.
+        document.querySelectorAll('.section a[href^="#"]').forEach(link => {
+            link.href = pageUrl(state.lang, pageState(new URL(link.getAttribute('href'), window.location.href).href).anchor);
+        });
+        const target = document.getElementById(state.anchor + suffix);
+        if (target && target !== section) target.scrollIntoView({ block: 'start' });
+        else window.scrollTo(0, 0);
+    }
+
+    document.getElementById('policy-date').textContent =
+        new Date(CONFIG.lastUpdated + 'T00:00:00').toLocaleDateString('en-US',
+            { year: 'numeric', month: 'long', day: 'numeric' });
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+    document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
+        link.href = 'mailto:' + CONFIG.contactEmail;
+        link.textContent = CONFIG.contactEmail;
+    });
+    document.documentElement.classList.add('js');
+    window.addEventListener('hashchange', syncPage);
+    syncPage();
 </script>
 
 </body>
