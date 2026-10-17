@@ -80,67 +80,139 @@ test('legacy English anchors follow the explicit language; unknown fragments saf
     }
 });
 
-test('privacy translations cover the same sections, retention and telemetry limitations', () => {
-    const italian = html.split('<div id="privacy"')[1].split('<div id="privacy-en"')[0];
-    const english = html.split('<div id="privacy-en"')[1].split('<!-- SECTION 3')[0];
-    const headings = text => [...text.matchAll(/<h[23][^>]*>(\d+)\./g)].map(match => Number(match[1]));
-    assert.deepEqual(headings(italian), [1, 2, 3, 4, 5, 6, 7, 8, 9]);
-    assert.deepEqual(headings(english), headings(italian));
-    assert.match(italian, /Bozza non pronta per la pubblicazione/);
-    assert.match(english, /Draft, not ready for publication/);
-    assert.match(italian, /<strong>un mese<\/strong>/);
-    assert.match(english, /<strong>one month<\/strong>/);
-    for (const text of [italian, english]) {
-        for (const topic of ['24', '30', '90', 'Heroku', 'MongoDB', 'Analytics', 'Anthropic', 'Brandfetch', 'FCM']) {
-            assert.ok(text.includes(topic), topic);
+// Content checks: they pin the facts the texts must state (verified against the app code on
+// 2026-10-17) and the parity between Italian and English. They do not certify legal compliance.
+const sectionOf = (id, nextMarker) => html.split('<div id="' + id + '"')[1].split(nextMarker)[0];
+const docs = {
+    deletion: { it: sectionOf('deletion', '<div id="deletion-en"'), en: sectionOf('deletion-en', '<!-- SECTION 2') },
+    privacy: { it: sectionOf('privacy', '<div id="privacy-en"'), en: sectionOf('privacy-en', '<!-- SECTION 3') },
+    terms: { it: sectionOf('subscriptions', '<div id="subscriptions-en"'), en: sectionOf('subscriptions-en', '</main>') },
+};
+const numbered = text => [...text.matchAll(/<h2[^>]*>(\d+)\./g)].map(match => Number(match[1]));
+const count = (text, pattern) => (text.match(pattern) || []).length;
+
+test('every document opens with a summary and has the same structure in both languages', () => {
+    for (const [name, { it, en }] of Object.entries(docs)) {
+        assert.match(it, /<div class="info"><strong>In breve<\/strong>/, name);
+        assert.match(en, /<div class="info"><strong>In short<\/strong>/, name);
+        assert.equal(count(it, /<h2/g), count(en, /<h2/g), name + ' headings');
+        assert.equal(count(it, /<tr>/g), count(en, /<tr>/g), name + ' table rows');
+        assert.equal(count(it, /<li>/g), count(en, /<li>/g), name + ' list items');
+    }
+    assert.deepEqual(numbered(docs.privacy.it), [1, 2, 3, 4, 5, 6, 7, 8, 9]);
+    assert.deepEqual(numbered(docs.privacy.en), numbered(docs.privacy.it));
+    assert.deepEqual(numbered(docs.terms.it), Array.from({ length: 13 }, (_, index) => index + 1));
+    assert.deepEqual(numbered(docs.terms.en), numbered(docs.terms.it));
+});
+
+test('published version: no placeholders or draft banners, decided values in place', () => {
+    for (const text of [docs.privacy.it, docs.privacy.en, docs.terms.it, docs.terms.en]) {
+        assert.equal(count(text, /class="todo"/g), 0);
+        assert.doesNotMatch(text, /\[(TITOLARE|CONTROLLER|SUPPLIER|PREAVVISO|NOTICE|CONSERVAZIONE|RETENTION)[^\]]*\]/);
+        assert.doesNotMatch(text, /Bozza|Draft|Non in vigore|Not in effect/);
+    }
+    assert.match(docs.terms.it, /In vigore dal 17 ottobre 2026/);
+    assert.match(docs.terms.en, /In effect from October 17, 2026/);
+    assert.match(docs.terms.it, /almeno 30\s+giorni prima/);
+    assert.match(docs.terms.en, /at least 30\s+days before/);
+    const mailboxes = new Set([...html.matchAll(/mailto:([^"]+)"/g)].map(match => match[1]));
+    assert.deepEqual([...mailboxes], ['stockrushinfo@gmail.com']);
+});
+
+test('terms state the decided prices, limits and store-only purchase', () => {
+    const { it, en } = docs.terms;
+    for (const fact of ['3,49 €', '29,99 €', 'IVA inclusa', 'App Store o Google Play', 'prova gratuita', 'condivisione in famiglia']) {
+        assert.ok(it.includes(fact), fact);
+    }
+    for (const fact of ['€3.49', '€29.99', 'VAT included', 'App Store or Google Play', 'free trial', 'family sharing']) {
+        assert.ok(en.includes(fact), fact);
+    }
+    for (const text of [it, en]) {
+        assert.match(text, /<td>\D+<\/td><td>20<\/td><td>50<\/td>/);
+        assert.match(text, /<td>\D+<\/td><td>3<\/td><td>20<\/td>/);
+        assert.ok(text.includes('TWR'));
+    }
+});
+
+test('terms do not promise limits locked for the paid period and explain what the user can do', () => {
+    const { it, en } = docs.terms;
+    assert.match(it, /Questi sono i limiti di oggi e possono cambiare<\/strong>, anche durante un periodo già\s+pagato/);
+    assert.match(en, /These are today's limits and they may change<\/strong>, even during a period you have\s+already paid for/);
+    assert.match(it, /puoi disdire il rinnovo dallo store, senza costi/);
+    assert.match(en, /you can cancel renewal in the store at no cost/);
+    assert.match(it, /recedere gratuitamente entro 30 giorni dall'avviso/);
+    assert.match(en, /withdraw free of charge within 30 days of the notice/);
+    assert.match(it, /con un messaggio che puoi conservare/);
+    assert.match(en, /with a message you can keep/);
+    assert.match(it, /se il problema si ripete o se è grave fin da subito/);
+    assert.match(en, /the problem keeps coming back, or it is serious from the start/);
+    for (const text of [it, en]) {
+        assert.doesNotMatch(text, /garantit[io] per tutta la durata|bloccat[io] per il periodo|locked (?:for|during) the paid|guaranteed for the whole/i);
+    }
+});
+
+test('Pro expiry keeps data, the first 20 instruments and blocked values in the total', () => {
+    assert.match(docs.terms.it, /Restano aggiornati i primi 20 titoli/);
+    assert.match(docs.terms.it, /«Bloccato»[\s\S]*Restano nel totale del portafoglio/);
+    assert.match(docs.terms.en, /Your first 20 instruments, in the order they entered your portfolio, stay updated/);
+    assert.match(docs.terms.en, /“Blocked”[\s\S]*They stay in your portfolio total/);
+    assert.match(docs.terms.it, /due account StockRush diversi/);
+    assert.match(docs.terms.en, /two different StockRush\s+accounts/);
+});
+
+test('withdrawal is explained to the user without internal notes for the lawyer', () => {
+    for (const text of [docs.terms.it, docs.terms.en]) {
+        assert.match(text, /14 (?:giorni|days)/);
+        assert.ok(text.includes('answer/15576634'));
+        assert.ok(text.includes('CELEX:32011L0083'));
+        assert.match(text, /(?:conferma per email con data e ora|confirmation with date and time)/);
+        assert.doesNotMatch(text, /per il legale|for the lawyer|professionista|professional must|da verificare|verify before|Funzione di recesso online/i);
+    }
+});
+
+test('privacy states opt-in Analytics, Crashlytics basis and grouped retention periods', () => {
+    const { it, en } = docs.privacy;
+    assert.match(it, /solo se dici sì/);
+    assert.match(en, /only if you say yes/);
+    assert.match(it, /Impostazioni → Privacy → Statistiche d'uso/);
+    assert.match(en, /Settings → Privacy → Usage statistics/);
+    assert.match(it, /Finché\s+non rispondi, o se dici no, la raccolta resta spenta\. Chiudere la domanda con la ✕ vale come no/);
+    assert.match(en, /Until\s+you answer, or if you say no, collection stays off\. Closing the question with the ✕ counts as no/);
+    assert.match(it, /cancelliamo i dati di Analytics salvati sul\s+telefono/);
+    assert.match(en, /we delete the Analytics data stored on\s+your phone/);
+    assert.match(it, /interesse legittimo a offrirti un'app stabile e sicura/);
+    assert.match(en, /legitimate interest in offering you a stable and\s+secure app/);
+    assert.doesNotMatch(html, /Oggi non esiste una scelta dedicata per Analytics|no dedicated Analytics choice/);
+    const retentionIt = it.split('id="privacy-retention"')[1].split('<h2>7.')[0];
+    const retentionEn = en.split('id="privacy-retention-en"')[1].split('<h2>7.')[0];
+    for (const period of ['24 ore', '30 giorni', '12 mesi', '24 mesi', '90 giorni', '7 giorni']) {
+        assert.ok(retentionIt.includes(period), period);
+    }
+    for (const period of ['24 hours', '30 days', '12 months', '24 months', '90 days', '7 days']) {
+        assert.ok(retentionEn.includes(period), period);
+    }
+    for (const text of [it, en]) {
+        for (const provider of ['Heroku', 'MongoDB', 'Firebase', 'Anthropic', 'Twelve Data', 'EODHD', 'OpenFIGI', 'Massive', 'Brandfetch', 'GitHub', 'Gmail', 'FCM']) {
+            assert.ok(text.includes(provider), provider);
         }
     }
-    assert.match(italian, /Oggi non esiste una scelta dedicata per Analytics/);
-    assert.match(english, /There is currently no dedicated Analytics choice/);
-    assert.match(english, /Application parameters do not include tickers, benchmark names, searches, chosen country\s+or portfolio amounts/);
-    assert.match(english, /installation identifier and push token at startup even with[\s\S]*notifications off/);
+    assert.match(it, /<strong>un mese<\/strong>/);
+    assert.match(en, /<strong>one month<\/strong>/);
 });
 
-test('automatic SDK data is not confused with allowlisted portfolio parameters', () => {
-    assert.match(html, /area geografica approssimativa dall'IP, senza GPS/);
-    assert.match(html, /approximate area from the IP address, without GPS/);
-    assert.match(html, /modalità d'inserimento per quantità o importo/);
-    assert.match(html, /entry mode by units or amount/);
-    assert.match(html, /prodotto, prezzo e valuta/);
-    assert.match(html, /product, price and currency/);
+test('deletion page keeps the subscription warning and the 24-month purchase retention', () => {
+    assert.match(docs.deletion.it, /Se hai Pro, disdici anche nello store/);
+    assert.match(docs.deletion.en, /If you have Pro, also cancel it in the store/);
+    assert.match(docs.deletion.it, /Restano fino a 24 mesi/);
+    assert.match(docs.deletion.en, /Kept for up to 24 months/);
+    assert.match(docs.deletion.it, /Elimina definitivamente/);
+    assert.match(docs.deletion.en, /Delete permanently/);
 });
 
-test('deletion does not promise expiry of every record or guaranteed Apple revocation', () => {
-    assert.doesNotMatch(html, /Technical records expire separately|retained for up to\s+24 hours|conservato fino a 24 ore/);
-    assert.match(html, /some currently have no automatic expiry/);
-    assert.match(html, /revoca presso Apple è tentata ma non garantita/);
-    assert.match(html, /Revocation with Apple is attempted, not guaranteed/);
-    assert.match(html, /nuovo account con la stessa identità/);
-    assert.match(html, /new account using that same\s+identity/);
-    assert.match(html, /Separate purchase records do not follow this expiry/);
-});
-
-test('static defaults, headings and print rules follow the selected document', () => {
+test('static defaults and print rules follow the selected document', () => {
     assert.match(html, /<div id="privacy-en" class="section active" lang="en">/);
-    assert.doesNotMatch(html, /<div id="privacy" class="section active"/);
-    assert.doesNotMatch(html, /<h3>\d+\./);
+    assert.doesNotMatch(html, /<div id="(?!privacy-en)[^"]+" class="section active"/);
     const print = html.split('@media print {')[1].split('        h1 {')[0];
     assert.match(print, /\.js \.section \{ display: none; \}/);
     assert.match(print, /\.js \.section\.active \{ display: block; \}/);
-});
-
-test('terms cover the same thirteen subjects without hardcoded prices or an implied effective contract', () => {
-    const italian = html.split('<div id="subscriptions"')[1].split('<div id="subscriptions-en"')[0];
-    const english = html.split('<div id="subscriptions-en"')[1].split('</main>')[0];
-    const headings = text => [...text.matchAll(/<h[23][^>]*>(\d+)\./g)].map(match => Number(match[1]));
-    assert.deepEqual(headings(italian), Array.from({ length: 13 }, (_, index) => index + 1));
-    assert.deepEqual(headings(english), headings(italian));
-    assert.match(italian, /Non in vigore/);
-    assert.match(english, /Not in effect/);
-    assert.match(italian, /Funzione di recesso online/);
-    assert.match(english, /Online withdrawal function/);
-    for (const text of [italian, english]) {
-        assert.ok(text.includes('TWR'));
-        assert.doesNotMatch(text, /(?:€|EUR|\beuro\b)\s*\d+[.,]\d{2}|\d+[.,]\d{2}\s*(?:€|EUR|\beuro\b)/i);
-    }
 });
