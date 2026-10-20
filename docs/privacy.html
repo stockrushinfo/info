@@ -71,6 +71,11 @@
             display: block;
             flex-shrink: 0;
         }
+        /* A 320 px il logotipo da 30 px (circa 182 px) piu' il selettore di lingua non ci stanno: a 24 px
+           (circa 146 px) l'intestazione resta su una riga fino a 302 px. */
+        @media (max-width: 380px) {
+            .brand-logo { height: 24px; }
+        }
 
         /* ── Nav tabs ── */
         nav {
