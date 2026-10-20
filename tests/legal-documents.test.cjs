@@ -192,7 +192,7 @@ test('privacy states opt-in Analytics, Crashlytics basis and grouped retention p
         assert.ok(retentionEn.includes(period), period);
     }
     for (const text of [it, en]) {
-        for (const provider of ['Heroku', 'MongoDB', 'Firebase', 'Anthropic', 'Twelve Data', 'EODHD', 'OpenFIGI', 'Massive', 'Brandfetch', 'GitHub', 'Gmail', 'FCM']) {
+        for (const provider of ['Heroku', 'MongoDB', 'Firebase', 'Anthropic', 'Twelve Data', 'EODHD', 'OpenFIGI', 'Massive', 'Brandfetch', 'GitHub', 'Gmail', 'FCM', 'SolarWinds', 'Papertrail']) {
             assert.ok(text.includes(provider), provider);
         }
     }
