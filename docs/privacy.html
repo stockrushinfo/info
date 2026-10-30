@@ -477,7 +477,7 @@
 <!-- ════════════════════════════════════════════════════════════════════════ -->
 <div id="privacy" class="section" lang="it">
     <h1>Informativa sulla privacy</h1>
-    <p class="subtitle">Versione del 24 ottobre 2026</p>
+    <p class="subtitle">Versione del 30 ottobre 2026</p>
     <div class="info"><strong>In breve</strong>
         <ul>
             <li>Usiamo i tuoi dati solo per far funzionare StockRush: account, portafoglio, calcoli,
@@ -513,7 +513,9 @@
         <li><strong>Portafoglio.</strong> Titoli, quantità, importi, date d'acquisto, dividendi,
             benchmark, valuta e paese che scegli. Ci servono per calcolare valori e rendimenti,
             mostrare grafici e widget e sincronizzare il portafoglio. Una copia è sul server e una
-            sul telefono. Il paese che scegli non dice dove ti trovi.</li>
+            sul telefono. Il paese che scegli non dice dove ti trovi. Quando cancelli un acquisto, sul
+            server resta solo un registro tecnico (un codice e un numero di revisione, senza titolo,
+            quantità, importi o date) che impedisce a una sincronizzazione più vecchia di farlo ricomparire.</li>
         <li><strong>Importazione da file.</strong> Se carichi un file Excel, CSV o PDF del tuo broker,
             lo leggiamo per ricavare le posizioni. Non teniamo un archivio dei file. Per i broker
             supportati usiamo un lettore dedicato. Se scegli la lettura con l'AI, il testo del
@@ -600,13 +602,14 @@
         <li><strong>Google Firebase</strong>: notifiche, rapporti di errore e, solo con il tuo consenso, statistiche d'uso.</li>
         <li><strong>Apple</strong> e <strong>Google</strong>: accesso con il loro account e pagamenti negli store.</li>
         <li><strong>Anthropic</strong>: lettura dei documenti nell'importazione con l'AI.</li>
-        <li><strong>Fornitori di dati di mercato</strong> (Twelve Data, EODHD, OpenFIGI, Massive): ricevono i
-            simboli dei titoli, le valute e i periodi da calcolare, mai il tuo account, le quantità o gli importi.</li>
+        <li><strong>Fornitori di dati di mercato</strong> (Twelve Data e OpenFIGI): i nostri server inviano
+            a Twelve Data simboli dei titoli, borse, valute e date da calcolare, e a OpenFIGI i codici ISIN.
+            Non ricevono mai il tuo account, le quantità, gli importi o l'indirizzo IP del tuo telefono.</li>
         <li><strong>Gmail</strong> (Google): casella dell'assistenza.</li>
         <li><strong>GitHub</strong>: ospita questa pagina.</li>
-        <li><strong>Brandfetch</strong>: fornirebbe i loghi dei titoli, funzione oggi spenta. Se la
-            attiviamo, riceve l'indirizzo IP e il logo richiesto, mai quantità o account.</li>
     </ul>
+    <p>Per i cambi storici i nostri server scaricano dalla Banca centrale europea dati pubblici, senza
+        inviarle dati tuoi.</p>
     <p>Alcuni fornitori trattano i dati per nostro conto; altri, come Apple e Google per accesso e
         pagamenti, li trattano anche come titolari autonomi. Possono accedere ai dati anche persone
         da noi autorizzate e, quando la legge lo prevede, le autorità.</p>
@@ -623,7 +626,6 @@
         <a href="https://www.salesforce.com/company/privacy/" target="_blank" rel="noopener">Salesforce</a>,
         <a href="https://www.solarwinds.com/legal/privacy" target="_blank" rel="noopener">SolarWinds</a>,
         <a href="https://www.mongodb.com/legal/privacy-policy" target="_blank" rel="noopener">MongoDB</a>,
-        <a href="https://brandfetch.com/privacy" target="_blank" rel="noopener">Brandfetch</a>,
         <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub</a>.</p>
 
     <h2 id="privacy-retention">6. Per quanto tempo conserviamo i dati</h2>
@@ -631,6 +633,7 @@
         <thead><tr><th>Dati</th><th>Per quanto</th></tr></thead>
         <tbody>
             <tr><td>Account, portafoglio, benchmark e preferenze</td><td>Finché usi l'account. Li cancelliamo quando elimini l'account.</td></tr>
+            <tr><td>Registri tecnici degli acquisti cancellati (codice e revisione)</td><td>Finché usi l'account, al massimo 10.000 per portafoglio: oltre, cancelliamo i più vecchi. Servono finché un altro telefono potrebbe ancora sincronizzare una copia vecchia. Spariscono quando elimini l'account.</td></tr>
             <tr><td>Sessioni e codici di accesso</td><td>Fino alla scadenza (di norma 7 giorni dall'ultimo rinnovo della sessione), poi cancellazione automatica.</td></tr>
             <tr><td>Risultati di importazioni e verifiche d'acquisto</td><td>24 ore, per evitare doppie operazioni se riprovi.</td></tr>
             <tr><td>Testo inviato ad Anthropic</td><td>Noi non lo archiviamo. Anthropic dichiara di conservarlo fino a 30 giorni, salvo casi previsti dalle sue condizioni, come obblighi di legge o controlli sugli abusi.</td></tr>
@@ -683,7 +686,7 @@
 
 <div id="privacy-en" class="section active" lang="en">
     <h1>Privacy Policy</h1>
-    <p class="subtitle">Version of <span id="policy-date">October 24, 2026</span></p>
+    <p class="subtitle">Version of <span id="policy-date">October 30, 2026</span></p>
     <div class="info"><strong>In short</strong>
         <ul>
             <li>We use your data only to make StockRush work: account, portfolio, calculations,
@@ -718,7 +721,9 @@
         <li><strong>Portfolio.</strong> Instruments, quantities, amounts, purchase dates, dividends,
             benchmark, and the currency and country you choose. We need them to calculate values and
             returns, show charts and widgets, and sync your portfolio. One copy is on the server and
-            one on your phone. The country you choose does not say where you are.</li>
+            one on your phone. The country you choose does not say where you are. When you delete a purchase,
+            the server keeps only a technical record (a code and a revision number, without instrument,
+            quantity, amounts or dates) that stops an older sync from bringing it back.</li>
         <li><strong>File import.</strong> If you upload an Excel, CSV or PDF file from your broker, we
             read it to extract your positions. We do not keep an archive of files. For supported
             brokers we use a dedicated reader. If you choose AI reading, the document's text is sent
@@ -803,13 +808,14 @@
         <li><strong>Google Firebase</strong>: notifications, crash reports and, only with your consent, usage statistics.</li>
         <li><strong>Apple</strong> and <strong>Google</strong>: sign-in with their accounts and store payments.</li>
         <li><strong>Anthropic</strong>: reading documents in the AI import.</li>
-        <li><strong>Market-data providers</strong> (Twelve Data, EODHD, OpenFIGI, Massive): they receive
-            instrument symbols, currencies and the periods to calculate, never your account, quantities or amounts.</li>
+        <li><strong>Market-data providers</strong> (Twelve Data and OpenFIGI): our servers send Twelve Data
+            instrument symbols, exchanges, currencies and the dates to calculate, and OpenFIGI ISIN codes.
+            They never receive your account, quantities, amounts or your phone's IP address.</li>
         <li><strong>Gmail</strong> (Google): support mailbox.</li>
         <li><strong>GitHub</strong>: hosts this page.</li>
-        <li><strong>Brandfetch</strong>: would provide instrument logos, a feature currently off. If we
-            turn it on, it receives your IP address and the requested logo, never quantities or your account.</li>
     </ul>
+    <p>For historical exchange rates our servers download public data from the European Central Bank,
+        without sending it any of your data.</p>
     <p>Some providers process data on our behalf; others, such as Apple and Google for sign-in and
         payments, also process it as independent controllers. People we authorise and, where the law
         requires, authorities may also access data.</p>
@@ -825,7 +831,6 @@
         <a href="https://www.salesforce.com/company/privacy/" target="_blank" rel="noopener">Salesforce</a>,
         <a href="https://www.solarwinds.com/legal/privacy" target="_blank" rel="noopener">SolarWinds</a>,
         <a href="https://www.mongodb.com/legal/privacy-policy" target="_blank" rel="noopener">MongoDB</a>,
-        <a href="https://brandfetch.com/privacy" target="_blank" rel="noopener">Brandfetch</a>,
         <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub</a>.</p>
 
     <h2 id="privacy-retention-en">6. How long we keep data</h2>
@@ -833,6 +838,7 @@
         <thead><tr><th>Data</th><th>How long</th></tr></thead>
         <tbody>
             <tr><td>Account, portfolio, benchmark and preferences</td><td>As long as you use the account. We delete them when you delete the account.</td></tr>
+            <tr><td>Technical records of deleted purchases (code and revision)</td><td>As long as you use the account, at most 10,000 per portfolio: beyond that, we delete the oldest. They are needed as long as another phone might still sync an old copy. They disappear when you delete the account.</td></tr>
             <tr><td>Sessions and sign-in codes</td><td>Until they expire (normally 7 days after the session was last renewed), then deleted automatically.</td></tr>
             <tr><td>Results of imports and purchase checks</td><td>24 hours, to avoid duplicate operations if you try again.</td></tr>
             <tr><td>Text sent to Anthropic</td><td>We do not store it. Anthropic states it keeps it for up to 30 days, except in cases set out in its terms, such as legal duties or abuse checks.</td></tr>
@@ -882,14 +888,14 @@
         count as consent.</p>
 </div>
 
-<!-- SECTION 3 — SERVICE AND SUBSCRIPTION TERMS (version 1.0, in effect from October 17, 2026). -->
+<!-- SECTION 3 — SERVICE AND SUBSCRIPTION TERMS (version 1.1, in effect from October 30, 2026). -->
 <div id="subscriptions" class="section" lang="it">
     <h1>Termini del servizio e degli abbonamenti</h1>
-    <p class="subtitle">StockRush Free e Pro · Versione 1.0 · In vigore dal 17 ottobre 2026</p>
+    <p class="subtitle">StockRush Free e Pro · Versione 1.1 · In vigore dal 30 ottobre 2026</p>
     <div class="info"><strong>In breve</strong>
         <ul>
             <li>StockRush è gratuito. Pro è un abbonamento facoltativo con più titoli e più importazioni con l'AI.</li>
-            <li>Pro costa <strong>3,49 € al mese</strong> o <strong>29,99 € all'anno</strong>, IVA inclusa.
+            <li>Pro costa <strong>2,99 € al mese</strong> o <strong>24,99 € all'anno</strong>, IVA inclusa.
                 Si compra e si rinnova solo tramite App Store o Google Play. Non c'è una prova gratuita.</li>
             <li>Il rinnovo è automatico. Puoi disdire quando vuoi dallo store: Pro resta attivo fino
                 alla fine del periodo pagato.</li>
@@ -920,7 +926,7 @@
             <tr><td>Titoli monitorati</td><td>20</td><td>50</td></tr>
             <tr><td>Importazioni con l'AI al mese</td><td>3</td><td>20</td></tr>
             <tr><td>Borse</td><td>Quelle indicate come Free nell'app</td><td>Anche quelle indicate come Pro</td></tr>
-            <tr><td>Prezzo</td><td>Gratis</td><td>3,49 €/mese o 29,99 €/anno</td></tr>
+            <tr><td>Prezzo</td><td>Gratis</td><td>2,99 €/mese o 24,99 €/anno</td></tr>
         </tbody>
     </table>
     <ul>
@@ -1030,8 +1036,10 @@
             dei tuoi acquisti.</li>
         <li><strong>Limiti dei calcoli.</strong> Non ricostruiamo liquidità, vendite, posizioni chiuse,
             imposte e commissioni. I dividendi sono lordi e non si considerano reinvestiti; se la nostra
-            fonte non li copre, l'app li indica come esclusi. I cambi sono gli ultimi disponibili, non
-            quelli storici. Un benchmark ad accumulazione reinveste i proventi: anche questo influenza
+            fonte non li copre, l'app li indica come esclusi. Il costo degli acquisti in valuta estera
+            è convertito al cambio di riferimento della BCE del giorno d'acquisto (o dell'ultimo pubblicato nei
+            giorni precedenti), quando disponibile; i
+            valori attuali usano l'ultimo cambio disponibile. Un benchmark ad accumulazione reinveste i proventi: anche questo influenza
             il confronto.</li>
     </ul>
 
@@ -1090,11 +1098,11 @@
 
 <div id="subscriptions-en" class="section" lang="en">
     <h1>Service and Subscription Terms</h1>
-    <p class="subtitle">StockRush Free and Pro · Version 1.0 · In effect from October 17, 2026</p>
+    <p class="subtitle">StockRush Free and Pro · Version 1.1 · In effect from October 30, 2026</p>
     <div class="info"><strong>In short</strong>
         <ul>
             <li>StockRush is free. Pro is an optional subscription with more instruments and more AI imports.</li>
-            <li>Pro costs <strong>€3.49 per month</strong> or <strong>€29.99 per year</strong>, VAT included.
+            <li>Pro costs <strong>€2.99 per month</strong> or <strong>€24.99 per year</strong>, VAT included.
                 You buy and renew it only through the App Store or Google Play. There is no free trial.</li>
             <li>It renews automatically. You can cancel at any time in the store: Pro stays active until
                 the end of the paid period.</li>
@@ -1124,7 +1132,7 @@
             <tr><td>Monitored instruments</td><td>20</td><td>50</td></tr>
             <tr><td>AI imports per month</td><td>3</td><td>20</td></tr>
             <tr><td>Exchanges</td><td>Those marked Free in the app</td><td>Also those marked Pro</td></tr>
-            <tr><td>Price</td><td>Free</td><td>€3.49/month or €29.99/year</td></tr>
+            <tr><td>Price</td><td>Free</td><td>€2.99/month or €24.99/year</td></tr>
         </tbody>
     </table>
     <ul>
@@ -1232,8 +1240,10 @@
         <li><strong>An instrument's chart</strong> shows its price movement, not the return on your purchases.</li>
         <li><strong>Calculation limits.</strong> We do not rebuild cash, sales, closed positions, taxes
             and fees. Dividends are gross and not treated as reinvested; if our source does not cover
-            them, the app marks them as excluded. Exchange rates are the latest available, not historical
-            ones. An accumulating benchmark reinvests its income: this also affects the comparison.</li>
+            them, the app marks them as excluded. The cost of purchases in a foreign currency is
+            converted at the ECB reference rate of the purchase date (or the latest one published in the days
+            before), where available; current values use
+            the latest available rate. An accumulating benchmark reinvests its income: this also affects the comparison.</li>
     </ul>
 
     <h2>10. Changes to the service and these Terms</h2>
@@ -1297,7 +1307,7 @@
 <script>
     const CONFIG = {
         contactEmail: 'stockrushinfo@gmail.com',
-        lastUpdated: '2026-10-24',
+        lastUpdated: '2026-10-30',
     };
     const DOCUMENT_IDS = ['privacy', 'deletion', 'subscriptions'];
 

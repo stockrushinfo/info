@@ -111,8 +111,8 @@ test('published version: no placeholders or draft banners, decided values in pla
         assert.doesNotMatch(text, /\[(TITOLARE|CONTROLLER|SUPPLIER|PREAVVISO|NOTICE|CONSERVAZIONE|RETENTION)[^\]]*\]/);
         assert.doesNotMatch(text, /Bozza|Draft|Non in vigore|Not in effect/);
     }
-    assert.match(docs.terms.it, /In vigore dal 17 ottobre 2026/);
-    assert.match(docs.terms.en, /In effect from October 17, 2026/);
+    assert.match(docs.terms.it, /Versione 1\.1 · In vigore dal 30 ottobre 2026/);
+    assert.match(docs.terms.en, /Version 1\.1 · In effect from October 30, 2026/);
     assert.match(docs.terms.it, /almeno 30\s+giorni prima/);
     assert.match(docs.terms.en, /at least 30\s+days before/);
     const mailboxes = new Set([...html.matchAll(/mailto:([^"]+)"/g)].map(match => match[1]));
@@ -121,10 +121,10 @@ test('published version: no placeholders or draft banners, decided values in pla
 
 test('terms state the decided prices, limits and store-only purchase', () => {
     const { it, en } = docs.terms;
-    for (const fact of ['3,49 €', '29,99 €', 'IVA inclusa', 'App Store o Google Play', 'prova gratuita', 'condivisione in famiglia']) {
+    for (const fact of ['2,99 €', '24,99 €', 'IVA inclusa', 'App Store o Google Play', 'prova gratuita', 'condivisione in famiglia']) {
         assert.ok(it.includes(fact), fact);
     }
-    for (const fact of ['€3.49', '€29.99', 'VAT included', 'App Store or Google Play', 'free trial', 'family sharing']) {
+    for (const fact of ['€2.99', '€24.99', 'VAT included', 'App Store or Google Play', 'free trial', 'family sharing']) {
         assert.ok(en.includes(fact), fact);
     }
     for (const text of [it, en]) {
@@ -170,6 +170,13 @@ test('withdrawal is explained to the user without internal notes for the lawyer'
     }
 });
 
+test('no retired provider and no old Pro price anywhere in the page', () => {
+    // 30/10: EODHD e Massive spenti, loghi dei titoli (Brandfetch) non al lancio, Pro a 2,99/24,99.
+    for (const removed of ['EODHD', 'Massive', 'Brandfetch', '3,49 €', '29,99 €', '€3.49', '€29.99']) {
+        assert.ok(!html.includes(removed), removed);
+    }
+});
+
 test('privacy states opt-in Analytics, Crashlytics basis and grouped retention periods', () => {
     const { it, en } = docs.privacy;
     assert.match(it, /solo se dici sì/);
@@ -192,7 +199,7 @@ test('privacy states opt-in Analytics, Crashlytics basis and grouped retention p
         assert.ok(retentionEn.includes(period), period);
     }
     for (const text of [it, en]) {
-        for (const provider of ['Heroku', 'MongoDB', 'Firebase', 'Anthropic', 'Twelve Data', 'EODHD', 'OpenFIGI', 'Massive', 'Brandfetch', 'GitHub', 'Gmail', 'FCM', 'SolarWinds', 'Papertrail']) {
+        for (const provider of ['Heroku', 'MongoDB', 'Firebase', 'Anthropic', 'Twelve Data', 'OpenFIGI', 'GitHub', 'Gmail', 'FCM', 'SolarWinds', 'Papertrail']) {
             assert.ok(text.includes(provider), provider);
         }
     }
